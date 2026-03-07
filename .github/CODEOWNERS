@@ -1,0 +1,7 @@
+# Default reviewers for all files
+* @[your-github-username]
+
+# Domain-specific reviewers
+/coding/   @[coding-team-reviewer]
+/devops/   @[devops-team-reviewer]
+/security/ @[security-team-reviewer]
