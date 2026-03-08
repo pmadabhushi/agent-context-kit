@@ -1,0 +1,47 @@
+{
+  "name": "ai-agent-templates",
+  "version": "1.0.0",
+  "description": "Structured configuration templates for AI coding, DevOps, and security agents. Encode team knowledge into AGENTS.md, skills, and personas so AI agents read context automatically at session start.",
+  "build-system": "no-op",
+  "domains": {
+    "coding": {
+      "description": "AI coding agent — code reviews, testing, changelog generation",
+      "agents": "coding/AGENTS.md",
+      "personas": ["coding/personas/dev_agent.md"],
+      "skills": [
+        "coding/skills/raise_cr/SKILL.md",
+        "coding/skills/run_tests/SKILL.md",
+        "coding/skills/generate_changelog/SKILL.md"
+      ]
+    },
+    "devops": {
+      "description": "AI DevOps agent — deployments, rollbacks, incident triage, scaling, log analysis, IaC, health checks",
+      "agents": "devops/AGENTS.md",
+      "personas": ["devops/personas/ops_engineer.md"],
+      "skills": [
+        "devops/skills/deploy_service/SKILL.md",
+        "devops/skills/rollback_service/SKILL.md",
+        "devops/skills/incident_triage/SKILL.md",
+        "devops/skills/scale_service/SKILL.md",
+        "devops/skills/log_analysis/SKILL.md",
+        "devops/skills/infrastructure_management/SKILL.md",
+        "devops/skills/health_check/SKILL.md"
+      ]
+    },
+    "security": {
+      "description": "AI security agent — vulnerability triage, incident response, secrets rotation, access review",
+      "agents": "security/AGENTS.md",
+      "personas": ["security/personas/security_analyst.md"],
+      "skills": [
+        "security/skills/vuln_triage/SKILL.md",
+        "security/skills/incident_response/SKILL.md",
+        "security/skills/secrets_rotation/SKILL.md",
+        "security/skills/access_review/SKILL.md"
+      ]
+    }
+  },
+  "usage": {
+    "instructions": "Copy the relevant domain folder into your service repo. Replace all [placeholder] values with your team's actual tools, commands, and conventions. Point your AI agent at AGENTS.md as its startup config.",
+    "reference": "https://agents.md/"
+  }
+}

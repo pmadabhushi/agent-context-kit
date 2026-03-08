@@ -41,6 +41,9 @@ Each domain contains:
 | `devops/skills/rollback_service/SKILL.md` | DevOps | Skill |
 | `devops/skills/incident_triage/SKILL.md` | DevOps | Skill |
 | `devops/skills/scale_service/SKILL.md` | DevOps | Skill |
+| `devops/skills/log_analysis/SKILL.md` | DevOps | Skill |
+| `devops/skills/infrastructure_management/SKILL.md` | DevOps | Skill |
+| `devops/skills/health_check/SKILL.md` | DevOps | Skill |
 | `devops/personas/ops_engineer.md` | DevOps | Persona |
 | `security/README.md` | Security | Human-facing doc |
 | `security/AGENTS.md` | Security | AI config |
@@ -49,6 +52,10 @@ Each domain contains:
 | `security/skills/secrets_rotation/SKILL.md` | Security | Skill |
 | `security/skills/access_review/SKILL.md` | Security | Skill |
 | `security/personas/security_analyst.md` | Security | Persona |
+
+## Template Manifest
+
+The `template.json` file at the root provides a machine-readable manifest of all domains, personas, and skills in this template set. It can be used by tooling to discover and validate the template structure.
 
 ## References
 
