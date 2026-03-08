@@ -50,6 +50,30 @@ WARNINGS=0
 # ---------------------------------------------------------------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Verify we're in the agent-context-kit repo
+if [[ ! -f "$SCRIPT_DIR/agent/requirements.txt" ]]; then
+    fail "Can't find agent/requirements.txt relative to setup.sh"
+    echo ""
+    echo "  setup.sh must be in the root of the agent-context-kit repo."
+    echo "  Detected location: $SCRIPT_DIR"
+    echo ""
+    echo "  Expected structure:"
+    echo "    $SCRIPT_DIR/"
+    echo "    ├── setup.sh          ← you are here"
+    echo "    ├── agent/"
+    echo "    │   ├── requirements.txt"
+    echo "    │   ├── main.py"
+    echo "    │   └── ..."
+    echo "    ├── templates/"
+    echo "    └── docs/"
+    echo ""
+    echo "  If you haven't cloned the repo yet:"
+    echo "    git clone https://github.com/pmadabhushi/agent-context-kit.git"
+    echo "    cd agent-context-kit"
+    echo "    ./setup.sh"
+    exit 1
+fi
+
 # ---------------------------------------------------------------------------
 # Detect Linux package manager
 # ---------------------------------------------------------------------------
