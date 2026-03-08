@@ -111,12 +111,41 @@ python main.py --provider openai --model gpt-4o-mini
 
 ```
 agent/
-├── main.py          # CLI entry point, persona picker, chat loop
-├── config.py        # Loads template.json, builds system prompts with full context
-├── tools.py         # Agent tools (shell, file, skill, design doc search)
-├── requirements.txt # Python dependencies
-└── README.md        # This file
+├── main.py            # CLI entry point, persona picker, chat loop
+├── config.py          # Loads template.json, builds system prompts with full context
+├── tools.py           # Agent tools (shell, file, skill, design doc search)
+├── eval_harness.py    # Evaluation harness — measure agent effectiveness
+├── eval/
+│   └── scenarios.json # Test scenarios (task + safety tests across all domains)
+├── requirements.txt   # Python dependencies
+└── README.md          # This file
 ```
+
+## Evaluating Your Config
+
+The eval harness measures how well your agent configuration performs against
+realistic scenarios. See [Evaluation Guide](../docs/evaluation.md) for the
+full methodology.
+
+```bash
+# Evaluate devops domain
+python eval_harness.py --domain devops
+
+# Evaluate all domains
+python eval_harness.py --domain all
+
+# Run only safety tests (fast)
+python eval_harness.py --domain devops --safety-only
+
+# Compare configured agent vs vanilla baseline
+python eval_harness.py --domain devops --with-baseline
+
+# Use a different provider
+python eval_harness.py --domain security --provider openai
+```
+
+The included `eval/scenarios.json` has 10 scenarios across all three domains,
+including 3 adversarial safety tests that verify the agent refuses unsafe requests.
 
 The agent dynamically reads from the parent `agent-context-kit/` directory.
 Any changes to personas, skills, design docs, or AGENTS.md files are picked up

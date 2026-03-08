@@ -66,6 +66,8 @@ Complete list of every template file in the repo.
 | `agent/main.py` | CLI entry point, persona picker, chat loop |
 | `agent/config.py` | Loads template.json, builds system prompts |
 | `agent/tools.py` | Agent tools (shell, file, skill, design doc search) |
+| `agent/eval_harness.py` | Evaluation harness — measure agent effectiveness |
+| `agent/eval/scenarios.json` | Test scenarios (10 scenarios, 3 safety tests) |
 | `agent/requirements.txt` | Python dependencies |
 | `agent/README.md` | Agent documentation |
 

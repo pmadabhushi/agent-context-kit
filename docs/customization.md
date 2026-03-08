@@ -98,6 +98,122 @@ The agent will now support `/switch data-engineering` and auto-load skills.
 | ML Engineering | Model training, deployment, monitoring | model_deploy, experiment_tracking, drift_detection |
 | Technical Writing | Docs, API references, runbooks | doc_review, api_doc_generation, runbook_audit |
 
+### Worked Example: Creating a Data Engineering Domain
+
+Here's the complete process from scratch to working agent:
+
+```bash
+# Step 1: Create folder structure
+mkdir -p templates/data-engineering/skills
+mkdir -p templates/data-engineering/design/pipelines
+mkdir -p templates/data-engineering/design/schemas
+```
+
+`templates/data-engineering/persona.md`:
+```markdown
+# Data Engineering Agent Persona
+
+## Role
+You are a senior data engineer responsible for pipeline reliability,
+data quality, and schema management.
+
+## Mindset
+- You think like an engineer who owns the data SLAs. Late or corrupt data
+  has downstream consequences — dashboards go stale, ML models retrain on
+  garbage, and business decisions get made on wrong numbers.
+- You validate before you transform. You never assume upstream data is clean.
+- You treat schema changes like database migrations — backward compatible,
+  versioned, and reversible.
+
+## Methodology
+1. Understand the data lineage before touching anything
+2. Check pipeline health and recent run history
+3. Validate data quality at source before investigating transforms
+4. Make changes incrementally — one stage at a time
+
+## Safety Rules
+- Never drop or truncate production tables
+- Never bypass data validation steps
+- Schema changes require backward compatibility
+- PII columns must be tagged before any pipeline processes them
+
+## Output Format
+### Pipeline Investigation Report
+- **Pipeline:** [name]
+- **Status:** [healthy/degraded/failed]
+- **Last Successful Run:** [timestamp]
+- **Issue:** [description]
+- **Root Cause:** [analysis]
+- **Fix:** [recommended action]
+```
+
+`templates/data-engineering/AGENTS.md`:
+```markdown
+# AGENTS.md — Data Engineering
+
+## Pipeline Overview
+- **Orchestrator:** [Airflow/Step Functions/Prefect]
+- **Compute:** [Spark/Glue/dbt]
+- **Storage:** S3 (raw) → [Iceberg/Delta] (curated) → [Redshift/Snowflake] (serving)
+- **Catalog:** [Glue Data Catalog/Hive Metastore]
+
+## Conventions
+- DAG naming: `[team]_[source]_[destination]_[frequency]`
+- All pipelines must have data quality checks at ingestion and output
+- Schema changes require a migration PR with backward compatibility proof
+
+## Key Commands
+- Pipeline status: `airflow dags list-runs -d [dag_id] --limit 5`
+- Trigger backfill: `airflow dags backfill -s [start] -e [end] [dag_id]`
+- Data quality: `great_expectations checkpoint run [checkpoint_name]`
+- Schema diff: `schema-tool diff --source [old] --target [new]`
+
+## Safety Rules
+- Never run DELETE/TRUNCATE on production tables without explicit approval
+- Never bypass Great Expectations validation checkpoints
+- PII columns must be tagged in the data catalog before processing
+- Backfills must be tested on a date range in dev before running in prod
+```
+
+```bash
+# Step 2: Register in template.json
+# Add to the "domains" object:
+```
+
+```json
+"data-engineering": {
+  "description": "AI data engineering agent — pipelines, schemas, data quality",
+  "agents": "templates/data-engineering/AGENTS.md",
+  "persona": "templates/data-engineering/persona.md",
+  "design": {
+    "pipelines": "templates/data-engineering/design/pipelines/",
+    "schemas": "templates/data-engineering/design/schemas/"
+  },
+  "skills": [
+    "templates/data-engineering/skills/pipeline_debug.md",
+    "templates/data-engineering/skills/schema_migration.md"
+  ]
+}
+```
+
+```python
+# Step 3: Add trigger keywords to agent/config.py
+SKILL_TRIGGER_MAP["data-engineering"] = {
+    "pipeline_debug": ["pipeline", "dag", "airflow", "spark", "etl", "data flow", "backfill"],
+    "schema_migration": ["schema", "migration", "column", "table", "catalog", "alter"],
+}
+```
+
+```bash
+# Step 4: Test it
+python main.py --persona data-engineering
+data-engineering> Our daily orders pipeline failed at the transform stage
+# Agent loads pipeline_debug skill and follows the steps
+```
+
+Total time: ~30 minutes to have a working domain with persona, team config,
+and skill auto-loading.
+
 ## Composite Skills
 
 ### Skills That Call Other Skills
@@ -229,54 +345,142 @@ def create_agent(domain, provider, model_id=None):
 
 Model Context Protocol (MCP) is a standard for connecting AI agents to external
 tools and data sources. Instead of building custom tools, you connect to MCP
-servers that expose capabilities.
+servers that expose capabilities through a standard interface.
 
-### Adding MCP Tools to the Agent
+### Exposing Agent Context as an MCP Server
 
-If your AI tool supports MCP (Kiro, Cursor, etc.), you can expose your agent's
-knowledge through an MCP server:
+You can make your team's knowledge available to any MCP-compatible tool (Kiro,
+Cursor, VS Code, etc.) by wrapping the agent's config layer as an MCP server:
 
 ```python
-# mcp_server.py — Expose agent context as an MCP server
-from mcp import Server
+# agent/mcp_server.py — Expose agent context via MCP
+from mcp.server.fastmcp import FastMCP
 
-server = Server("agent-context")
+from config import (
+    load_agents_md, load_persona, load_skill, load_all_skills,
+    list_skills, load_design_docs, list_design_docs, get_domains,
+)
 
-@server.tool()
+mcp = FastMCP("agent-context-kit")
+
+
+@mcp.tool()
 def get_team_config(domain: str) -> str:
-    """Get the AGENTS.md configuration for a domain."""
+    """Get the AGENTS.md configuration for a domain.
+
+    Args:
+        domain: The domain (coding, devops, security).
+    """
     return load_agents_md(domain)
 
-@server.tool()
-def get_skill_instructions(domain: str, skill: str) -> str:
-    """Get step-by-step instructions for a specific skill."""
-    return load_skill(domain, skill)
 
-@server.tool()
+@mcp.tool()
+def get_persona(domain: str) -> str:
+    """Get the persona definition for a domain.
+
+    Args:
+        domain: The domain (coding, devops, security).
+    """
+    return load_persona(domain)
+
+
+@mcp.tool()
+def get_skill_instructions(domain: str, skill_name: str) -> str:
+    """Get step-by-step instructions for a specific skill.
+
+    Args:
+        domain: The domain (coding, devops, security).
+        skill_name: The skill to load (e.g., deploy_service, incident_triage).
+    """
+    content = load_skill(domain, skill_name)
+    if content:
+        return content
+    available = list_skills(domain)
+    return f"Skill '{skill_name}' not found. Available: {', '.join(available)}"
+
+
+@mcp.tool()
 def search_architecture(domain: str, query: str) -> str:
-    """Search design documents for architecture information."""
-    return search_design_docs(domain, query)
+    """Search design documents for architecture information.
+
+    Args:
+        domain: The domain to search.
+        query: Text to search for (case-insensitive).
+    """
+    design_docs = load_design_docs(domain)
+    results = []
+    for category, docs in design_docs.items():
+        for doc in docs:
+            if query.lower() in doc["content"].lower():
+                # Return first 500 chars of matching doc
+                preview = doc["content"][:500]
+                results.append(f"[{category}] {doc['name']}:\n{preview}")
+    return "\n\n---\n\n".join(results) if results else f"No matches for '{query}'"
+
+
+@mcp.tool()
+def list_available_context(domain: str) -> str:
+    """List all available context for a domain: skills, design docs, persona.
+
+    Args:
+        domain: The domain (coding, devops, security).
+    """
+    skills = list_skills(domain)
+    design = list_design_docs(domain)
+    design_summary = ", ".join(
+        f"{cat}: {', '.join(names)}" for cat, names in design.items()
+    )
+    return (
+        f"Domain: {domain}\n"
+        f"Skills: {', '.join(skills)}\n"
+        f"Design docs: {design_summary}"
+    )
+
+
+if __name__ == "__main__":
+    mcp.run()
 ```
 
-### MCP Config
+### Configuring the MCP Server
 
-Add to your `.kiro/settings/mcp.json` or equivalent:
+For Kiro, add to `.kiro/settings/mcp.json`:
 
 ```json
 {
   "mcpServers": {
-    "agent-context": {
+    "agent-context-kit": {
       "command": "python",
       "args": ["agent/mcp_server.py"],
       "env": {},
-      "disabled": false
+      "disabled": false,
+      "autoApprove": ["list_available_context", "get_team_config"]
     }
   }
 }
 ```
 
-Now your AI tool can access your team's knowledge through MCP tools without
-needing the full agent running.
+For Cursor, add to `.cursor/mcp.json` with the same structure.
+
+Now any MCP-compatible tool can query your team's knowledge:
+
+```
+User: What's the deployment process for our service?
+
+Tool calls: get_team_config("devops") → returns AGENTS.md
+            get_skill_instructions("devops", "deploy_service") → returns skill steps
+
+Agent: Based on your team config, here's the deployment process...
+```
+
+### When to Use MCP vs the Full Agent
+
+| Use Case | Approach |
+|----------|----------|
+| Quick lookups in your AI tool | MCP server (lightweight, read-only) |
+| Multi-step operational tasks | Full agent (has shell, file tools, skill chaining) |
+| Team onboarding | MCP server (browse context from any tool) |
+| Incident response | Full agent (needs to run commands, follow procedures) |
+| CI/CD integration | Full agent or direct config loading |
 
 ## CI/CD Integration
 

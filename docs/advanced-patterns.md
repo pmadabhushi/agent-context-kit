@@ -319,6 +319,114 @@ def load_agents_md(domain, environment="prod"):
     return base
 ```
 
+## Worked Example: Cross-Domain Incident Response
+
+Here's a concrete example using the actual repo files to handle an incident
+that spans DevOps and Security domains.
+
+### The Scenario
+
+OrderService is returning 5xx errors AND the security team flagged suspicious
+access patterns in the same timeframe. This needs both domains.
+
+### Session 1: DevOps Triage
+
+```
+# Start with devops persona
+python main.py --persona devops
+
+devops> We're seeing 5xx errors on OrderService (3% error rate) AND security
+        flagged unusual API access patterns in the last 2 hours.
+
+Agent: Loading skill: incident_triage
+
+       Step 1 — Severity Assessment:
+       Error rate 3% exceeds the 2% threshold → SEV2
+       Combined with security flag → escalating to SEV1
+
+       Step 2 — Recent Changes:
+       > Checking deployments...
+       v2.4.0 deployed 2 hours ago (correlates with both issues)
+
+       Step 3 — Root Cause Hypothesis:
+       The v2.4.0 deploy changed the auth middleware. This could explain
+       both the 5xx errors (broken auth → rejections) and the unusual
+       access patterns (auth bypass → unauthorized requests getting through).
+
+       Recommendation: Rollback v2.4.0 immediately, then hand off to
+       security for access pattern analysis.
+
+       Investigation Summary
+       ---------------------
+       Service:     OrderService
+       Severity:    SEV1 (infra + security)
+       Root Cause:  v2.4.0 auth middleware change
+       Action:      Immediate rollback, security handoff
+
+devops> /switch security
+```
+
+### Session 2: Security Assessment
+
+```
+security> Based on the DevOps triage (v2.4.0 auth middleware change caused
+          5xx errors and unusual access patterns), assess the security impact.
+
+Agent: Loading skill: incident_response
+
+       Step 1 — Scope Assessment:
+       Timeframe: 2 hours (v2.4.0 deploy to rollback)
+       Affected endpoint: POST /api/v1/orders (auth middleware path)
+
+       Step 2 — Access Log Analysis:
+       > Checking auth logs for the 2-hour window...
+       Found: 47 requests that bypassed auth validation
+       Source IPs: 3 unique IPs, 2 are known internal, 1 external
+
+       Step 3 — Data Exposure Check:
+       Per design/services/order-service.md, the orders endpoint
+       handles PII (customer name, address, payment token).
+       47 requests × order data = potential PII exposure.
+
+       Step 4 — Containment:
+       - Rollback already completed (DevOps)
+       - Block external IP at WAF
+       - Invalidate any sessions created during the window
+
+       Security Assessment
+       --------------------
+       Classification: Data exposure incident
+       PII at risk:    47 order records
+       External access: 1 IP (blocked)
+       Required:        Privacy team notification within 24h
+```
+
+This shows the sequential handoff pattern in practice — the DevOps persona's
+structured output becomes input context for the Security persona.
+
+### Token Budget for This Session
+
+```
+DevOps persona system prompt:
+  persona.md:           ~800 tokens
+  AGENTS.md:            ~600 tokens
+  Design docs:          ~2,000 tokens (service templates)
+  All 7 skills:         ~3,500 tokens
+  Trigger map + rules:  ~500 tokens
+  Total:                ~7,400 tokens
+
+Security persona system prompt:
+  persona.md:           ~900 tokens
+  AGENTS.md:            ~500 tokens
+  Design docs:          ~2,500 tokens (threat models, policies, controls)
+  All 4 skills:         ~2,000 tokens
+  Trigger map + rules:  ~400 tokens
+  Total:                ~6,300 tokens
+```
+
+Both fit comfortably in a 128K context window. For smaller windows (8K-32K),
+use the tiered loading strategy from the Context Window Management section.
+
 ## Anti-Patterns to Avoid
 
 | Anti-Pattern | Why It's Bad | What to Do Instead |
