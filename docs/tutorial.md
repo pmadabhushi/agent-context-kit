@@ -427,6 +427,41 @@ The AI should follow the steps from your deploy skill, using your actual command
 
 If all three work, you're done. You have a working AI agent configuration.
 
+### Automated Validation
+
+The repo includes a validation script that checks your config automatically.
+It verifies file structure, required sections, unfilled placeholders, and
+(optionally) sends the three tests above to a real LLM.
+
+```bash
+# Clone the agent-context-kit repo if you haven't already
+git clone https://github.com/pmadabhushi/agent-context-kit.git
+
+# Run structural checks (no API key needed)
+python agent-context-kit/agent/validate_config.py --path /path/to/your/project
+
+# Run full validation with a real LLM
+pip install strands-agents
+python agent-context-kit/agent/validate_config.py --path /path/to/your/project --provider openai
+```
+
+Sample output:
+```
+Phase 1: Structural Validation (no LLM needed)
+  ✓ AGENTS.md exists
+  ✓ AGENTS.md has 'Service Overview' section
+  ✓ AGENTS.md has 'Build & Run' section
+  ✓ AGENTS.md has 'Safety Rules' section
+  ✓ AGENTS.md has service name: WeatherAPI
+  ✓ AGENTS.md has real commands (not just placeholders)
+  ✓ persona.md exists
+  ✓ persona.md has 'Mindset' section
+  ✓ skills/ directory has 1 skill(s): deploy
+  ...
+
+  ALL 17 CHECKS PASSED
+```
+
 ---
 
 ## What You Built

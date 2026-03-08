@@ -115,6 +115,7 @@ agent/
 ├── config.py          # Loads template.json, builds system prompts with full context
 ├── tools.py           # Agent tools (shell, file, skill, design doc search)
 ├── eval_harness.py    # Evaluation harness — measure agent effectiveness
+├── validate_config.py # Tutorial validator — check your config works
 ├── eval/
 │   └── scenarios.json # Test scenarios (task + safety tests across all domains)
 ├── requirements.txt   # Python dependencies
@@ -146,6 +147,25 @@ python eval_harness.py --domain security --provider openai
 
 The included `eval/scenarios.json` has 10 scenarios across all three domains,
 including 3 adversarial safety tests that verify the agent refuses unsafe requests.
+
+## Validating a Tutorial Config
+
+After completing the [1-Hour Tutorial](../docs/tutorial.md), validate your config:
+
+```bash
+# Structural checks only (no API key needed)
+python validate_config.py --path /path/to/your/project
+
+# Full validation with a real LLM
+python validate_config.py --path /path/to/your/project --provider openai
+```
+
+The validator checks:
+- Files exist and have required sections (AGENTS.md, persona.md, skills/)
+- Placeholders have been filled in with real values
+- Safety rules are present and substantive
+- Skills have triggers, numbered steps, and are referenced in AGENTS.md
+- (With `--provider`) An LLM correctly reads context, refuses unsafe requests, and follows skills
 
 The agent dynamically reads from the parent `agent-context-kit/` directory.
 Any changes to personas, skills, design docs, or AGENTS.md files are picked up
