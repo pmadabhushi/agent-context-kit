@@ -67,6 +67,10 @@
     "default_provider": "bedrock"
   },
   "examples": {
+    "quickstart": {
+      "description": "Simplest possible config — Todo App with 4 files",
+      "path": "examples/quickstart/"
+    },
     "devops-filled": {
       "description": "Filled-out DevOps example for a fictional OrderService",
       "path": "examples/devops-filled/"

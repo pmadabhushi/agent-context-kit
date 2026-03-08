@@ -48,6 +48,10 @@ agent-context-kit/
 Read [`docs/getting-started.md`](docs/getting-started.md) — explains what agents are,
 why configuration matters, and how to use this repo.
 
+### Just want the simplest possible example?
+See [`examples/quickstart/`](examples/quickstart/) — a 4-file Todo App config you can
+copy and customize in 5 minutes.
+
 ### Want to see a completed example?
 - [`examples/devops-filled/`](examples/devops-filled/) — Simple DevOps example (OrderService web app)
 - [`examples/greenfield-energy/`](examples/greenfield-energy/) — Full three-persona example for an IoT energy platform (fleet of linear generators)
@@ -81,14 +85,14 @@ Supports AWS Bedrock, OpenAI, Anthropic, and LiteLLM. See [`agent/README.md`](ag
 
 These templates work with any AI tool that can read files from your repo:
 
-| Tool | How |
-|------|-----|
-| Kiro | Reads `AGENTS.md` automatically |
-| Cursor | Add to `.cursorrules` or reference in chat |
-| GitHub Copilot | Reference with `#file:AGENTS.md` |
-| Amazon Q Developer | Include in repo context |
-| Claude / ChatGPT | Paste contents or upload files |
-| Custom agents | Use the `agent/` directory as a starting point |
+| Tool | How | Setup Guide |
+|------|-----|-------------|
+| Kiro | Reads `AGENTS.md` automatically | [docs/tool-guides/kiro.md](docs/tool-guides/kiro.md) |
+| Cursor | Add to `.cursorrules` or reference in chat | [docs/tool-guides/cursor.md](docs/tool-guides/cursor.md) |
+| GitHub Copilot | Reference with `#file:AGENTS.md` | [docs/tool-guides/copilot.md](docs/tool-guides/copilot.md) |
+| Amazon Q Developer | Include in repo context | [docs/tool-guides/amazon-q.md](docs/tool-guides/amazon-q.md) |
+| Claude / ChatGPT | Paste contents or upload files | — |
+| Custom agents | Use the `agent/` directory as a starting point | [agent/README.md](agent/README.md) |
 
 ## File Inventory
 
@@ -127,7 +131,10 @@ These templates work with any AI tool that can read files from your repo:
 ## Learn More
 
 - [Getting Started Guide](docs/getting-started.md) — What are agents? Why does this matter?
+- [Cheat Sheet](docs/cheatsheet.md) — One-page reference card for building agent configs
+- [Quickstart Example](examples/quickstart/) — Simplest possible config (Todo App, 4 files)
 - [Filled Example](examples/devops-filled/) — See what a completed configuration looks like
+- [Tool Setup Guides](docs/tool-guides/) — Kiro, Cursor, Copilot, Amazon Q
 - [Master Template Reference](docs/master-template.md) — Full reference with all sections explained
 - [Contributing Guide](docs/CONTRIBUTING.md) — How to add domains, skills, and personas
 - [Agent README](agent/README.md) — Running the multi-persona agent
