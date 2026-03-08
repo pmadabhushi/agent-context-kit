@@ -1,0 +1,96 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate template.json paths
+        run: |
+          python3 -c "
+          import json, sys
+          from pathlib import Path
+
+          with open('template.json') as f:
+              manifest = json.load(f)
+
+          errors = []
+          for domain, config in manifest['domains'].items():
+              # Check persona
+              if not Path(config['persona']).exists():
+                  errors.append(f'{domain}: persona not found: {config[\"persona\"]}')
+
+              # Check AGENTS.md
+              if not Path(config['agents']).exists():
+                  errors.append(f'{domain}: AGENTS.md not found: {config[\"agents\"]}')
+
+              # Check skills
+              for skill in config['skills']:
+                  if not Path(skill).exists():
+                      errors.append(f'{domain}: skill not found: {skill}')
+
+              # Check design directories
+              for category, dir_path in config.get('design', {}).items():
+                  if not Path(dir_path).exists():
+                      errors.append(f'{domain}: design dir not found: {dir_path}')
+
+          if errors:
+              print('Path validation failed:')
+              for e in errors:
+                  print(f'  ✗ {e}')
+              sys.exit(1)
+          else:
+              print(f'All paths valid across {len(manifest[\"domains\"])} domains.')
+          "
+
+      - name: Validate agent Python syntax
+        run: |
+          python3 -m py_compile agent/config.py
+          python3 -m py_compile agent/tools.py
+          python3 -m py_compile agent/main.py
+          echo "All agent Python files compile successfully."
+
+      - name: Check for broken markdown links (internal)
+        run: |
+          python3 -c "
+          import json, re
+          from pathlib import Path
+
+          errors = []
+          for md_file in Path('.').rglob('*.md'):
+              if '.git' in str(md_file):
+                  continue
+              content = md_file.read_text()
+              # Find markdown links to local files (not URLs)
+              links = re.findall(r'\[.*?\]\((?!http)(.*?)\)', content)
+              for link in links:
+                  # Strip anchors
+                  clean = link.split('#')[0]
+                  if not clean:
+                      continue
+                  # Resolve relative to the markdown file's directory
+                  target = md_file.parent / clean
+                  if not target.exists():
+                      errors.append(f'{md_file}: broken link → {link}')
+
+          if errors:
+              print(f'Found {len(errors)} broken internal link(s):')
+              for e in errors:
+                  print(f'  ✗ {e}')
+              # Warning only, don't fail — some links may be intentional placeholders
+              # sys.exit(1)
+          else:
+              print('No broken internal links found.')
+          "

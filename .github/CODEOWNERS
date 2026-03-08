@@ -1,7 +1,8 @@
 # Default reviewers for all files
-* @[your-github-username]
+* @pmadabhushi
 
 # Domain-specific reviewers
-/coding/   @[coding-team-reviewer]
-/devops/   @[devops-team-reviewer]
-/security/ @[security-team-reviewer]
+/templates/coding/   @pmadabhushi
+/templates/devops/   @pmadabhushi
+/templates/security/ @pmadabhushi
+/agent/              @pmadabhushi
