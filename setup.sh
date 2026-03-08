@@ -5,6 +5,8 @@
 # Sets up everything you need to run the agent, MCP server, eval harness,
 # and tutorial validator. Safe to run multiple times (idempotent).
 #
+# Supports: macOS (Intel & Apple Silicon), Ubuntu/Debian, Fedora/RHEL, Arch Linux
+#
 # Usage:
 #   ./setup.sh              # Full setup
 #   ./setup.sh --check      # Just check what's installed, don't install anything
@@ -48,6 +50,38 @@ WARNINGS=0
 # ---------------------------------------------------------------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# ---------------------------------------------------------------------------
+# Detect Linux package manager
+# ---------------------------------------------------------------------------
+PKG_MGR="unknown"
+pkg_install() {
+    case "$PKG_MGR" in
+        apt)    sudo apt-get install -y -qq "$@" ;;
+        dnf)    sudo dnf install -y -q "$@" ;;
+        yum)    sudo yum install -y -q "$@" ;;
+        pacman) sudo pacman -S --noconfirm "$@" ;;
+        *)      fail "No supported package manager found (tried apt, dnf, yum, pacman)"
+                return 1 ;;
+    esac
+}
+
+pkg_update() {
+    case "$PKG_MGR" in
+        apt)    sudo apt-get update -qq ;;
+        dnf)    sudo dnf check-update -q || true ;;
+        yum)    sudo yum check-update -q || true ;;
+        pacman) sudo pacman -Sy --noconfirm ;;
+        *)      return 1 ;;
+    esac
+}
+
+detect_pkg_manager() {
+    if command -v apt-get &>/dev/null; then PKG_MGR="apt"
+    elif command -v dnf &>/dev/null; then PKG_MGR="dnf"
+    elif command -v yum &>/dev/null; then PKG_MGR="yum"
+    elif command -v pacman &>/dev/null; then PKG_MGR="pacman"
+    fi
+}
 
 # ---------------------------------------------------------------------------
 # 1. OS Detection
@@ -68,8 +102,23 @@ if [[ "$OS" == "unknown" ]]; then
 fi
 
 pass "OS: $(uname -s) ($OS)"
-pass "Shell: $SHELL"
+pass "Shell: ${SHELL:-$(basename "$(cat /proc/$$/comm 2>/dev/null || echo unknown)")}"
 pass "Architecture: $(uname -m)"
+
+if [[ "$OS" == "linux" ]]; then
+    detect_pkg_manager
+    if [[ "$PKG_MGR" != "unknown" ]]; then
+        pass "Package manager: $PKG_MGR"
+    else
+        warn "No supported package manager found — you may need to install dependencies manually"
+        WARNINGS=$((WARNINGS + 1))
+    fi
+    # Show distro info if available
+    if [[ -f /etc/os-release ]]; then
+        DISTRO=$(sed -n 's/^PRETTY_NAME="\(.*\)"/\1/p' /etc/os-release 2>/dev/null || echo "unknown")
+        pass "Distro: $DISTRO"
+    fi
+fi
 
 # ---------------------------------------------------------------------------
 # 2. Homebrew (macOS only)
@@ -124,7 +173,8 @@ else
             echo "  Then re-run this script."
             exit 0
         elif [[ "$OS" == "linux" ]]; then
-            sudo apt-get update -qq && sudo apt-get install -y -qq git
+            pkg_update
+            pkg_install git
         fi
 
         if command -v git &>/dev/null; then
@@ -178,74 +228,99 @@ else
     fi
 fi
 
-
 # ---------------------------------------------------------------------------
 # 4. Python 3.10+
 # ---------------------------------------------------------------------------
 header "4. Python 3.10+"
 
 # Find the best available Python
-PYTHON_CMD=""
-for cmd in python3.13 python3.12 python3.11 python3.10 python3; do
-    if command -v "$cmd" &>/dev/null; then
-        PY_VERSION=$("$cmd" --version 2>&1 | grep -oE '[0-9]+\.[0-9]+')
-        PY_MAJOR=$(echo "$PY_VERSION" | cut -d. -f1)
-        PY_MINOR=$(echo "$PY_VERSION" | cut -d. -f2)
-        if [[ "$PY_MAJOR" -ge 3 && "$PY_MINOR" -ge 10 ]]; then
-            PYTHON_CMD="$cmd"
-            break
-        fi
-    fi
-done
-
-# Also check Homebrew Python on macOS (might not be in PATH yet)
-if [[ -z "$PYTHON_CMD" && "$OS" == "macos" ]]; then
-    for brew_py in /opt/homebrew/bin/python3.13 /opt/homebrew/bin/python3.12 /opt/homebrew/bin/python3.11 /opt/homebrew/bin/python3.10 /usr/local/bin/python3.13 /usr/local/bin/python3.12 /usr/local/bin/python3.11 /usr/local/bin/python3.10; do
-        if [[ -x "$brew_py" ]]; then
-            PY_VERSION=$("$brew_py" --version 2>&1 | grep -oE '[0-9]+\.[0-9]+')
+find_python() {
+    for cmd in python3.14 python3.13 python3.12 python3.11 python3.10 python3; do
+        if command -v "$cmd" &>/dev/null; then
+            PY_VERSION=$("$cmd" --version 2>&1 | grep -oE '[0-9]+\.[0-9]+' | head -1)
             PY_MAJOR=$(echo "$PY_VERSION" | cut -d. -f1)
             PY_MINOR=$(echo "$PY_VERSION" | cut -d. -f2)
             if [[ "$PY_MAJOR" -ge 3 && "$PY_MINOR" -ge 10 ]]; then
-                PYTHON_CMD="$brew_py"
-                break
+                echo "$cmd"
+                return 0
             fi
         fi
     done
-fi
+
+    # macOS: also check Homebrew paths (might not be in PATH yet)
+    if [[ "$OS" == "macos" ]]; then
+        for brew_py in /opt/homebrew/bin/python3{.14,.13,.12,.11,.10,} /usr/local/bin/python3{.14,.13,.12,.11,.10,}; do
+            if [[ -x "$brew_py" ]]; then
+                PY_VERSION=$("$brew_py" --version 2>&1 | grep -oE '[0-9]+\.[0-9]+' | head -1)
+                PY_MAJOR=$(echo "$PY_VERSION" | cut -d. -f1)
+                PY_MINOR=$(echo "$PY_VERSION" | cut -d. -f2)
+                if [[ "$PY_MAJOR" -ge 3 && "$PY_MINOR" -ge 10 ]]; then
+                    echo "$brew_py"
+                    return 0
+                fi
+            fi
+        done
+    fi
+
+    return 1
+}
+
+PYTHON_CMD=$(find_python || echo "")
 
 if [[ -n "$PYTHON_CMD" ]]; then
     pass "Python found: $($PYTHON_CMD --version) ($PYTHON_CMD)"
 else
+    CURRENT_PY=$(python3 --version 2>&1 || echo "not installed")
     if $CHECK_ONLY; then
-        fail "Python 3.10+ not found (macOS ships with 3.9 which is too old)"
-        echo "  Install: brew install python"
+        fail "Python 3.10+ not found (current: $CURRENT_PY)"
+        if [[ "$OS" == "macos" ]]; then
+            echo "  Install: brew install python"
+        elif [[ "$OS" == "linux" ]]; then
+            case "$PKG_MGR" in
+                apt)    echo "  Install: sudo apt install python3.12 python3.12-venv" ;;
+                dnf)    echo "  Install: sudo dnf install python3.12" ;;
+                pacman) echo "  Install: sudo pacman -S python" ;;
+                *)      echo "  Install Python 3.10+ from https://www.python.org/downloads/" ;;
+            esac
+        fi
         ERRORS=$((ERRORS + 1))
     else
-        info "Installing Python via Homebrew..."
+        info "Installing Python..."
         if [[ "$OS" == "macos" ]]; then
             if command -v brew &>/dev/null; then
                 brew install python
-                # Find the newly installed Python
-                for brew_py in /opt/homebrew/bin/python3 /usr/local/bin/python3; do
-                    if [[ -x "$brew_py" ]]; then
-                        PYTHON_CMD="$brew_py"
-                        break
-                    fi
-                done
             else
                 fail "Homebrew not available — install it first (step 2)"
                 ERRORS=$((ERRORS + 1))
             fi
         elif [[ "$OS" == "linux" ]]; then
-            sudo apt-get update -qq && sudo apt-get install -y -qq python3 python3-pip python3-venv
-            PYTHON_CMD="python3"
+            pkg_update
+            case "$PKG_MGR" in
+                apt)
+                    # Try python3.12 first (available on Ubuntu 24.04+ and via deadsnakes)
+                    if apt-cache show python3.12 &>/dev/null; then
+                        pkg_install python3.12 python3.12-venv
+                    else
+                        # Fall back to default python3 and hope it's 3.10+
+                        pkg_install python3 python3-pip python3-venv
+                    fi
+                    ;;
+                dnf)    pkg_install python3.12 || pkg_install python3 python3-pip ;;
+                pacman) pkg_install python ;;
+                *)      fail "Can't auto-install Python — install 3.10+ manually" ;;
+            esac
         fi
 
+        PYTHON_CMD=$(find_python || echo "")
         if [[ -n "$PYTHON_CMD" ]]; then
             pass "Python installed: $($PYTHON_CMD --version)"
         else
-            fail "Python installation failed"
-            echo "  Install manually: https://www.python.org/downloads/"
+            fail "Python 3.10+ installation failed"
+            echo "  Your system may only have an older Python available."
+            echo "  Try: https://github.com/pyenv/pyenv (any OS)"
+            if [[ "$OS" == "linux" && "$PKG_MGR" == "apt" ]]; then
+                echo "  Or:  https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa (Ubuntu)"
+            fi
             ERRORS=$((ERRORS + 1))
         fi
     fi
@@ -256,23 +331,36 @@ if [[ -n "$PYTHON_CMD" ]]; then
     if $PYTHON_CMD -m venv --help &>/dev/null; then
         pass "venv module available"
     else
-        if [[ "$OS" == "linux" ]]; then
-            if $CHECK_ONLY; then
-                fail "Python venv module not installed"
-                echo "  Install: sudo apt install python3-venv"
-                ERRORS=$((ERRORS + 1))
-            else
-                info "Installing python3-venv..."
-                sudo apt-get install -y -qq python3-venv
-                pass "venv module installed"
+        if $CHECK_ONLY; then
+            fail "Python venv module not installed"
+            if [[ "$OS" == "linux" ]]; then
+                PY_SHORT=$($PYTHON_CMD --version 2>&1 | grep -oE '[0-9]+\.[0-9]+' | head -1)
+                echo "  Install: sudo $PKG_MGR install python${PY_SHORT}-venv"
             fi
-        else
-            fail "Python venv module not available"
             ERRORS=$((ERRORS + 1))
+        else
+            if [[ "$OS" == "linux" ]]; then
+                info "Installing Python venv module..."
+                PY_SHORT=$($PYTHON_CMD --version 2>&1 | grep -oE '[0-9]+\.[0-9]+' | head -1)
+                case "$PKG_MGR" in
+                    apt)    pkg_install "python${PY_SHORT}-venv" || pkg_install python3-venv ;;
+                    dnf)    pkg_install python3-libs ;;  # venv is usually included
+                    pacman) pass "venv is included with python on Arch" ;;
+                    *)      fail "Install the Python venv module manually" ;;
+                esac
+                if $PYTHON_CMD -m venv --help &>/dev/null; then
+                    pass "venv module installed"
+                else
+                    fail "venv module still not available"
+                    ERRORS=$((ERRORS + 1))
+                fi
+            else
+                fail "Python venv module not available"
+                ERRORS=$((ERRORS + 1))
+            fi
         fi
     fi
 fi
-
 
 # ---------------------------------------------------------------------------
 # 5. Virtual Environment and Dependencies
@@ -324,7 +412,7 @@ fi
 # ---------------------------------------------------------------------------
 header "6. Smoke Test"
 
-if [[ -d "$VENV_DIR" ]] && [[ -n "$PYTHON_CMD" ]]; then
+if [[ -d "$VENV_DIR" ]] && [[ -n "${PYTHON_CMD:-}" ]]; then
     # Test 1: validator
     info "Running structural validator against quickstart example..."
     if "$VENV_DIR/bin/python" "$SCRIPT_DIR/agent/validate_config.py" --path "$SCRIPT_DIR/examples/quickstart" 2>&1 | grep -q "ALL 17 CHECKS PASSED"; then
@@ -359,7 +447,6 @@ else
     ERRORS=$((ERRORS + 1))
 fi
 
-
 # ---------------------------------------------------------------------------
 # 7. LLM Provider Check (informational only)
 # ---------------------------------------------------------------------------
@@ -381,6 +468,8 @@ else
     info "AWS CLI not installed (needed for Bedrock, the default provider)"
     if [[ "$OS" == "macos" ]]; then
         echo "    Install: brew install awscli"
+    elif [[ "$OS" == "linux" ]]; then
+        echo "    Install: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html"
     fi
 fi
 
