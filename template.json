@@ -58,5 +58,12 @@
   "usage": {
     "instructions": "Copy the relevant domain folder into your service repo. Replace all [placeholder] values with your team's actual tools, commands, and conventions. Point your AI agent at AGENTS.md as its startup config.",
     "reference": "https://agents.md/"
+  },
+  "agent": {
+    "description": "Working multi-persona agent built with Strands Agents SDK",
+    "entry_point": "agent/main.py",
+    "requirements": "agent/requirements.txt",
+    "supported_providers": ["bedrock", "openai", "anthropic", "litellm"],
+    "default_provider": "bedrock"
   }
 }

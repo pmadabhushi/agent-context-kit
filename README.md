@@ -8,6 +8,7 @@ read it automatically at session start — no more re-explaining context every s
 
 ```
 ai-agent-templates/
+├── agent/        # Working multi-persona agent (Strands SDK)
 ├── coding/       # Coding agent: AGENTS.md, skills, persona
 ├── devops/       # DevOps agent: AGENTS.md, skills, persona
 └── security/     # Security agent: AGENTS.md, skills, persona
@@ -21,9 +22,21 @@ Each domain contains:
 
 ## Quick Start
 
+### Using the templates
 1. Copy the relevant domain folder into your service repository
 2. Replace all `[placeholder]` values with your team's actual tools, commands, and conventions
 3. Point your AI agent at `AGENTS.md` as its startup configuration file
+
+### Running the agent
+```bash
+cd agent
+pip install -r requirements.txt
+python main.py                    # Interactive — pick a persona
+python main.py --persona devops   # Start as DevOps agent
+python main.py --provider openai  # Use OpenAI instead of Bedrock
+```
+
+Supports AWS Bedrock (default), OpenAI, Anthropic, and LiteLLM. See `agent/README.md` for details.
 
 ## Complete File Inventory
 
@@ -61,6 +74,13 @@ Each domain contains:
 | `security/design/threat_models/THREAT_MODEL_TEMPLATE.md` | Security | Design doc |
 | `security/design/policies/POLICY_TEMPLATE.md` | Security | Design doc |
 | `security/design/controls/CONTROL_TEMPLATE.md` | Security | Design doc |
+
+## Working Agent
+
+The `agent/` directory contains a fully functional multi-persona agent built with
+[Strands Agents SDK](https://github.com/strands-agents/sdk-python). It dynamically
+loads personas, skills, and team config from the template files above. See
+`agent/README.md` for setup and usage.
 
 ## Template Manifest
 
