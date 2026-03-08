@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0] - 2026-03-08
+
+### Added
+- `setup.sh` — one-command environment setup script. Detects OS, installs
+  Homebrew (macOS), Git (with user.name/email config), Python 3.10+, creates
+  virtual environment, installs dependencies, runs smoke tests, checks LLM
+  provider credentials. Supports macOS, Ubuntu/Debian, Fedora/RHEL, Arch Linux.
+  Idempotent and supports `--check` dry-run mode.
+- Environment setup guide in `docs/getting-started.md` — covers shell, Git
+  (install + config + GitHub auth), Python 3.10+ (with Homebrew install for
+  macOS), venv, all four LLM providers (Bedrock, OpenAI, Anthropic, LiteLLM),
+  and a verify-everything smoke test.
+
+### Fixed
+- Python version requirement corrected from 3.9+ to 3.10+ everywhere
+  (`strands-agents` and `fastmcp` both require 3.10+)
+- Added missing Homebrew installation step for fresh macOS users
+- Added `pip install --upgrade pip` step (old pip can't resolve modern packages)
+- Fixed venv/clone ordering in setup instructions
+
+### Changed
+- Updated README beginner path to reference `./setup.sh`
+- Updated `docs/tutorial.md` prerequisites to link to environment setup
+- Updated `agent/README.md` with Python 3.10+ requirement
+- Updated `agent/validate_config.py` docstring to note 3.9 compatibility for
+  structural checks
+
 ## [1.3.0] - 2026-03-08
 
 ### Added
