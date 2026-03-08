@@ -123,7 +123,7 @@ and the output format. It just works.
 ## Quick Start: 3 Ways to Use This Repo
 
 ### Option 1: Use the Templates (Recommended for Teams)
-1. Pick a domain: `coding/`, `devops/`, or `security/`
+1. Pick a domain: `templates/coding/`, `templates/devops/`, or `templates/security/`
 2. Copy the folder into your service repo
 3. Replace all `[placeholder]` values with your team's actual info
 4. Point your AI tool (Kiro, Cursor, Copilot, etc.) at `AGENTS.md`
@@ -178,7 +178,7 @@ Adapt the structure to fit your workflow.
 
 ## Next Steps
 
-- Browse the templates in `coding/`, `devops/`, or `security/`
+- Browse the templates in `templates/coding/`, `templates/devops/`, or `templates/security/`
 - Read the simple example in `examples/devops-filled/`
 - Read the full three-persona example in `examples/mainspring-energy/`
 - Try the agent: `cd agent && pip install -r requirements.txt && python main.py`

@@ -4,7 +4,7 @@
 
 1. Create the domain folder structure:
    ```
-   [domain]/
+   templates/[domain]/
    ├── AGENTS.md
    ├── README.md
    ├── persona.md
@@ -18,7 +18,7 @@
 
 ## Adding a New Skill
 
-1. Create `[domain]/skills/[skill-name].md`
+1. Create `templates/[domain]/skills/[skill-name].md`
 2. Use the standard format:
    - Skill ID, Domain, Trigger, Load from path
    - Prerequisites checklist
@@ -30,7 +30,7 @@
 
 ## Adding a New Persona
 
-1. Create or edit `[domain]/persona.md` (one persona per domain)
+1. Create or edit `templates/[domain]/persona.md` (one persona per domain)
 2. Include: Persona ID, Domain, Load when, Mindset, Investigation Methodology,
    Approach, Safety Rules, Output Format, Skills to Load table, References
 3. Update the domain's `AGENTS.md` persona table
@@ -38,7 +38,7 @@
 
 ## Adding a Design Template
 
-1. Create `[domain]/design/[category]/[TEMPLATE_NAME].md`
+1. Create `templates/[domain]/design/[category]/[TEMPLATE_NAME].md`
 2. Design categories by domain:
    - coding: `architecture/`, `apis/`, `patterns/`
    - devops: `services/`, `features/`, `workflows/`

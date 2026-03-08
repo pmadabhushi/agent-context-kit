@@ -6,57 +6,57 @@
   "domains": {
     "coding": {
       "description": "AI coding agent — code reviews, testing, changelog generation",
-      "agents": "coding/AGENTS.md",
-      "persona": "coding/persona.md",
+      "agents": "templates/coding/AGENTS.md",
+      "persona": "templates/coding/persona.md",
       "design": {
-        "architecture": "coding/design/architecture/",
-        "apis": "coding/design/apis/",
-        "patterns": "coding/design/patterns/"
+        "architecture": "templates/coding/design/architecture/",
+        "apis": "templates/coding/design/apis/",
+        "patterns": "templates/coding/design/patterns/"
       },
       "skills": [
-        "coding/skills/raise_cr.md",
-        "coding/skills/run_tests.md",
-        "coding/skills/generate_changelog.md"
+        "templates/coding/skills/raise_cr.md",
+        "templates/coding/skills/run_tests.md",
+        "templates/coding/skills/generate_changelog.md"
       ]
     },
     "devops": {
       "description": "AI DevOps agent — deployments, rollbacks, incident triage, scaling, log analysis, IaC, health checks",
-      "agents": "devops/AGENTS.md",
-      "persona": "devops/persona.md",
+      "agents": "templates/devops/AGENTS.md",
+      "persona": "templates/devops/persona.md",
       "design": {
-        "services": "devops/design/services/",
-        "features": "devops/design/features/",
-        "workflows": "devops/design/workflows/"
+        "services": "templates/devops/design/services/",
+        "features": "templates/devops/design/features/",
+        "workflows": "templates/devops/design/workflows/"
       },
       "skills": [
-        "devops/skills/deploy_service.md",
-        "devops/skills/rollback_service.md",
-        "devops/skills/incident_triage.md",
-        "devops/skills/scale_service.md",
-        "devops/skills/log_analysis.md",
-        "devops/skills/infrastructure_management.md",
-        "devops/skills/health_check.md"
+        "templates/devops/skills/deploy_service.md",
+        "templates/devops/skills/rollback_service.md",
+        "templates/devops/skills/incident_triage.md",
+        "templates/devops/skills/scale_service.md",
+        "templates/devops/skills/log_analysis.md",
+        "templates/devops/skills/infrastructure_management.md",
+        "templates/devops/skills/health_check.md"
       ]
     },
     "security": {
       "description": "AI security agent — vulnerability triage, incident response, secrets rotation, access review",
-      "agents": "security/AGENTS.md",
-      "persona": "security/persona.md",
+      "agents": "templates/security/AGENTS.md",
+      "persona": "templates/security/persona.md",
       "design": {
-        "threat_models": "security/design/threat_models/",
-        "policies": "security/design/policies/",
-        "controls": "security/design/controls/"
+        "threat_models": "templates/security/design/threat_models/",
+        "policies": "templates/security/design/policies/",
+        "controls": "templates/security/design/controls/"
       },
       "skills": [
-        "security/skills/vuln_triage.md",
-        "security/skills/incident_response.md",
-        "security/skills/secrets_rotation.md",
-        "security/skills/access_review.md"
+        "templates/security/skills/vuln_triage.md",
+        "templates/security/skills/incident_response.md",
+        "templates/security/skills/secrets_rotation.md",
+        "templates/security/skills/access_review.md"
       ]
     }
   },
   "usage": {
-    "instructions": "Copy the relevant domain folder into your service repo. Replace all [placeholder] values with your team's actual tools, commands, and conventions. Point your AI agent at AGENTS.md as its startup config.",
+    "instructions": "Copy the relevant domain folder from templates/ into your service repo. Replace all [placeholder] values with your team's actual tools, commands, and conventions. Point your AI agent at AGENTS.md as its startup config.",
     "reference": "https://agents.md/"
   },
   "agent": {

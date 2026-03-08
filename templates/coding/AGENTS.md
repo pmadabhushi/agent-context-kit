@@ -57,7 +57,7 @@
 | Run Tests | `skills/run_tests.md` | When asked to run tests or validate a change |
 | Generate Changelog | `skills/generate_changelog.md` | When preparing a release or summarizing changes |
 
-## Personas Available
+## Persona
 
 | Persona | File | When to Load |
 |---|---|---|

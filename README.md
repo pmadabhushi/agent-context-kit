@@ -33,10 +33,11 @@ Ready-to-use templates for three domains, a working agent, and a filled example:
 
 ```
 ai-agent-templates/
-├── coding/           # Dev agent: code reviews, testing, changelogs
-├── devops/           # Ops agent: deployments, incidents, scaling, logs
-├── security/         # Security agent: vuln triage, incidents, access review
-├── examples/         # Filled-out example (OrderService) — see what "done" looks like
+├── templates/        # ← Copy these into your repo
+│   ├── coding/       # Dev agent: code reviews, testing, changelogs
+│   ├── devops/       # Ops agent: deployments, incidents, scaling, logs
+│   └── security/     # Security agent: vuln triage, incidents, access review
+├── examples/         # Filled-out examples — see what "done" looks like
 ├── agent/            # Working multi-persona agent (Python, Strands SDK)
 └── docs/             # Getting started guide, master reference, contribution guide
 ```
@@ -52,7 +53,7 @@ why configuration matters, and how to use this repo.
 - [`examples/mainspring-energy/`](examples/mainspring-energy/) — Full three-persona example for an IoT energy platform (fleet of linear generators)
 
 ### Ready to use the templates?
-1. Copy a domain folder (`coding/`, `devops/`, or `security/`) into your repo
+1. Copy a domain folder from `templates/` (`coding/`, `devops/`, or `security/`) into your repo
 2. Replace all `[placeholder]` values with your team's actual info
 3. Point your AI tool at `AGENTS.md`
 
@@ -93,35 +94,35 @@ These templates work with any AI tool that can read files from your repo:
 
 | File | Domain | Type |
 |---|---|---|
-| `coding/AGENTS.md` | Coding | AI config |
-| `coding/persona.md` | Coding | Persona |
-| `coding/skills/raise_cr.md` | Coding | Skill |
-| `coding/skills/run_tests.md` | Coding | Skill |
-| `coding/skills/generate_changelog.md` | Coding | Skill |
-| `coding/design/architecture/` | Coding | Design template |
-| `coding/design/apis/` | Coding | Design template |
-| `coding/design/patterns/` | Coding | Design template |
-| `devops/AGENTS.md` | DevOps | AI config |
-| `devops/persona.md` | DevOps | Persona |
-| `devops/skills/deploy_service.md` | DevOps | Skill |
-| `devops/skills/rollback_service.md` | DevOps | Skill |
-| `devops/skills/incident_triage.md` | DevOps | Skill |
-| `devops/skills/scale_service.md` | DevOps | Skill |
-| `devops/skills/log_analysis.md` | DevOps | Skill |
-| `devops/skills/infrastructure_management.md` | DevOps | Skill |
-| `devops/skills/health_check.md` | DevOps | Skill |
-| `devops/design/services/` | DevOps | Design template |
-| `devops/design/features/` | DevOps | Design template |
-| `devops/design/workflows/` | DevOps | Design template |
-| `security/AGENTS.md` | Security | AI config |
-| `security/persona.md` | Security | Persona |
-| `security/skills/vuln_triage.md` | Security | Skill |
-| `security/skills/incident_response.md` | Security | Skill |
-| `security/skills/secrets_rotation.md` | Security | Skill |
-| `security/skills/access_review.md` | Security | Skill |
-| `security/design/threat_models/` | Security | Design template |
-| `security/design/policies/` | Security | Design template |
-| `security/design/controls/` | Security | Design template |
+| `templates/coding/AGENTS.md` | Coding | AI config |
+| `templates/coding/persona.md` | Coding | Persona |
+| `templates/coding/skills/raise_cr.md` | Coding | Skill |
+| `templates/coding/skills/run_tests.md` | Coding | Skill |
+| `templates/coding/skills/generate_changelog.md` | Coding | Skill |
+| `templates/coding/design/architecture/` | Coding | Design template |
+| `templates/coding/design/apis/` | Coding | Design template |
+| `templates/coding/design/patterns/` | Coding | Design template |
+| `templates/devops/AGENTS.md` | DevOps | AI config |
+| `templates/devops/persona.md` | DevOps | Persona |
+| `templates/devops/skills/deploy_service.md` | DevOps | Skill |
+| `templates/devops/skills/rollback_service.md` | DevOps | Skill |
+| `templates/devops/skills/incident_triage.md` | DevOps | Skill |
+| `templates/devops/skills/scale_service.md` | DevOps | Skill |
+| `templates/devops/skills/log_analysis.md` | DevOps | Skill |
+| `templates/devops/skills/infrastructure_management.md` | DevOps | Skill |
+| `templates/devops/skills/health_check.md` | DevOps | Skill |
+| `templates/devops/design/services/` | DevOps | Design template |
+| `templates/devops/design/features/` | DevOps | Design template |
+| `templates/devops/design/workflows/` | DevOps | Design template |
+| `templates/security/AGENTS.md` | Security | AI config |
+| `templates/security/persona.md` | Security | Persona |
+| `templates/security/skills/vuln_triage.md` | Security | Skill |
+| `templates/security/skills/incident_response.md` | Security | Skill |
+| `templates/security/skills/secrets_rotation.md` | Security | Skill |
+| `templates/security/skills/access_review.md` | Security | Skill |
+| `templates/security/design/threat_models/` | Security | Design template |
+| `templates/security/design/policies/` | Security | Design template |
+| `templates/security/design/controls/` | Security | Design template |
 
 ## Learn More
 

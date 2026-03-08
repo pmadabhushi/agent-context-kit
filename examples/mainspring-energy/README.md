@@ -68,6 +68,6 @@ All three personas are represented:
 ## How to Use This Example
 
 1. Browse the files to see how templates adapt to an IoT/energy domain
-2. Compare with the generic templates in `coding/`, `devops/`, `security/`
+2. Compare with the generic templates in `templates/coding/`, `templates/devops/`, `templates/security/`
 3. Notice how the same structure (AGENTS.md → persona → skills) works for
    physical hardware operations, not just cloud services

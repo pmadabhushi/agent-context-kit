@@ -236,7 +236,7 @@ def main():
         elif cmd == "/context":
             console.print(f"\n[bold]Loaded context for [cyan]{domain}[/cyan]:[/bold]\n")
             domains = get_domains()
-            console.print(f"  Persona: {domains[domain]['personas'][0]}")
+            console.print(f"  Persona: {domains[domain]['persona']}")
             console.print(f"  Team config: {domains[domain]['agents']}")
             design = list_design_docs(domain)
             if design:

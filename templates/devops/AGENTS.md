@@ -62,7 +62,7 @@
 | Infrastructure Management | `skills/infrastructure_management.md` | When asked to provision, update, or validate infrastructure (IaC) |
 | Health Check | `skills/health_check.md` | When asked for system status, health checks, or pre-deployment readiness |
 
-## Personas Available
+## Persona
 
 | Persona | File | When to Load |
 |---|---|---|

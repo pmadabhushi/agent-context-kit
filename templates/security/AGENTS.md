@@ -63,7 +63,7 @@
 | Secrets Rotation | `skills/secrets_rotation.md` | When rotating or remediating exposed secrets |
 | Access Review | `skills/access_review.md` | When reviewing IAM roles, permissions, or access grants |
 
-## Personas Available
+## Persona
 
 | Persona | File | When to Load |
 |---|---|---|
