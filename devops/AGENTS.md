@@ -66,7 +66,7 @@
 
 | Persona | File | When to Load |
 |---|---|---|
-| Ops Engineer | `personas/ops_engineer.md` | Default persona for all DevOps tasks |
+| Ops Engineer | `persona.md` | Default persona for all DevOps tasks |
 
 ## Design Documentation
 

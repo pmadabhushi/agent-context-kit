@@ -61,11 +61,11 @@ Mainspring operates at the intersection of IT and OT (Operational Technology):
 | OT Security Review | `skills/ot_security_review.md` | When reviewing edge/OT security |
 | Access Review | `skills/access_review.md` | When reviewing platform or fleet access |
 
-## Personas Available
+## Persona
 
 | Persona | File | When to Load |
 |---|---|---|
-| Security Analyst | `personas/security_analyst.md` | Default persona for all security tasks |
+| Security Analyst | `persona.md` | Default persona for all security tasks |
 
 ## References
 

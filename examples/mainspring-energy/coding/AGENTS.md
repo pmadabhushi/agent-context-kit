@@ -73,11 +73,11 @@ fleetos/
 | Raise PR | `skills/raise_pr.md` | When creating a pull request |
 | Telemetry Pipeline | `skills/telemetry_pipeline.md` | When working on the ingest pipeline |
 
-## Personas Available
+## Persona
 
 | Persona | File | When to Load |
 |---|---|---|
-| Platform Developer | `personas/platform_dev.md` | Default persona for all coding tasks |
+| Platform Developer | `persona.md` | Default persona for all coding tasks |
 
 ## References
 

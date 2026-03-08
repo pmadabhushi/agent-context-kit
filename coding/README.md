@@ -55,8 +55,7 @@ cd [repo name]
 │   ├── raise_cr.md
 │   ├── run_tests.md
 │   └── generate_changelog.md
-├── personas/
-│   └── dev_agent.md
+├── persona.md
 ├── AGENTS.md
 └── README.md
 ```

@@ -16,8 +16,7 @@ Encode your team's knowledge into structured files that the AI reads automatical
 ```
 Your repo/
 ├── AGENTS.md              ← Team config: tools, conventions, safety rules
-├── personas/              ← How the agent thinks and behaves
-│   └── ops_engineer.md
+├── persona.md             ← How the agent thinks and behaves
 ├── skills/                ← Step-by-step runbooks for specific tasks
 │   ├── deploy_service.md
 │   ├── incident_triage.md
@@ -72,7 +71,7 @@ Supports AWS Bedrock, OpenAI, Anthropic, and LiteLLM. See [`agent/README.md`](ag
 | File | Audience | Purpose |
 |------|----------|---------|
 | `AGENTS.md` | AI agent | Team config read at session start: tools, conventions, safety rules |
-| `personas/*.md` | AI agent | Mindset, methodology, safety guardrails, output format |
+| `persona.md` | AI agent | Mindset, methodology, safety guardrails, output format |
 | `skills/*.md` | AI agent | Step-by-step runbooks loaded on demand for specific tasks |
 | `design/**/*.md` | AI agent | Architecture, API specs, patterns, threat models, policies |
 | `README.md` | Humans | Project overview, setup instructions |
@@ -95,7 +94,7 @@ These templates work with any AI tool that can read files from your repo:
 | File | Domain | Type |
 |---|---|---|
 | `coding/AGENTS.md` | Coding | AI config |
-| `coding/personas/dev_agent.md` | Coding | Persona |
+| `coding/persona.md` | Coding | Persona |
 | `coding/skills/raise_cr.md` | Coding | Skill |
 | `coding/skills/run_tests.md` | Coding | Skill |
 | `coding/skills/generate_changelog.md` | Coding | Skill |
@@ -103,7 +102,7 @@ These templates work with any AI tool that can read files from your repo:
 | `coding/design/apis/` | Coding | Design template |
 | `coding/design/patterns/` | Coding | Design template |
 | `devops/AGENTS.md` | DevOps | AI config |
-| `devops/personas/ops_engineer.md` | DevOps | Persona |
+| `devops/persona.md` | DevOps | Persona |
 | `devops/skills/deploy_service.md` | DevOps | Skill |
 | `devops/skills/rollback_service.md` | DevOps | Skill |
 | `devops/skills/incident_triage.md` | DevOps | Skill |
@@ -115,7 +114,7 @@ These templates work with any AI tool that can read files from your repo:
 | `devops/design/features/` | DevOps | Design template |
 | `devops/design/workflows/` | DevOps | Design template |
 | `security/AGENTS.md` | Security | AI config |
-| `security/personas/security_analyst.md` | Security | Persona |
+| `security/persona.md` | Security | Persona |
 | `security/skills/vuln_triage.md` | Security | Skill |
 | `security/skills/incident_response.md` | Security | Skill |
 | `security/skills/secrets_rotation.md` | Security | Skill |

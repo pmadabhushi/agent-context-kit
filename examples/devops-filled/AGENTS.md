@@ -59,11 +59,11 @@
 | Incident Triage | `skills/incident_triage.md` | When investigating elevated errors, latency, or alerts |
 | Health Check | `skills/health_check.md` | When asked for system status or pre-deployment readiness |
 
-## Personas Available
+## Persona
 
 | Persona | File | When to Load |
 |---|---|---|
-| Ops Engineer | `personas/ops_engineer.md` | Default persona for all DevOps tasks |
+| Ops Engineer | `persona.md` | Default persona for all DevOps tasks |
 
 ## References
 

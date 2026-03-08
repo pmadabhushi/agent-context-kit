@@ -60,11 +60,11 @@
 | Firmware Update | `skills/firmware_update.md` | When rolling out firmware to field units |
 | Dispatch Management | `skills/dispatch_management.md` | When changing unit dispatch mode or power setpoint |
 
-## Personas Available
+## Persona
 
 | Persona | File | When to Load |
 |---|---|---|
-| Fleet Ops Engineer | `personas/fleet_ops_engineer.md` | Default persona for all fleet operations tasks |
+| Fleet Ops Engineer | `persona.md` | Default persona for all fleet operations tasks |
 
 ## References
 

@@ -75,7 +75,7 @@ graph TB
 │   │   └── constructs/
 │   └── bin/
 ├── design/                        # Design docs (this folder)
-├── personas/                      # Agent personas
+├── persona.md                     # Agent persona
 ├── skills/                        # Agent skills
 ├── AGENTS.md
 └── README.md

@@ -7,7 +7,7 @@
    [domain]/
    ├── AGENTS.md
    ├── README.md
-   ├── personas/
+   ├── persona.md
    ├── skills/
    └── design/
    ```
@@ -30,10 +30,11 @@
 
 ## Adding a New Persona
 
-1. Create `[domain]/personas/[persona-name].md`
+1. Create or edit `[domain]/persona.md` (one persona per domain)
 2. Include: Persona ID, Domain, Load when, Mindset, Investigation Methodology,
    Approach, Safety Rules, Output Format, Skills to Load table, References
-3. Add the persona to the domain's `AGENTS.md` personas table
+3. Update the domain's `AGENTS.md` persona table
+4. Update `template.json` with the persona path
 
 ## Adding a Design Template
 

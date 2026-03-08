@@ -7,7 +7,7 @@
     "coding": {
       "description": "AI coding agent — code reviews, testing, changelog generation",
       "agents": "coding/AGENTS.md",
-      "personas": ["coding/personas/dev_agent.md"],
+      "persona": "coding/persona.md",
       "design": {
         "architecture": "coding/design/architecture/",
         "apis": "coding/design/apis/",
@@ -22,7 +22,7 @@
     "devops": {
       "description": "AI DevOps agent — deployments, rollbacks, incident triage, scaling, log analysis, IaC, health checks",
       "agents": "devops/AGENTS.md",
-      "personas": ["devops/personas/ops_engineer.md"],
+      "persona": "devops/persona.md",
       "design": {
         "services": "devops/design/services/",
         "features": "devops/design/features/",
@@ -41,7 +41,7 @@
     "security": {
       "description": "AI security agent — vulnerability triage, incident response, secrets rotation, access review",
       "agents": "security/AGENTS.md",
-      "personas": ["security/personas/security_analyst.md"],
+      "persona": "security/persona.md",
       "design": {
         "threat_models": "security/design/threat_models/",
         "policies": "security/design/policies/",

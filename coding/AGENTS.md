@@ -61,7 +61,7 @@
 
 | Persona | File | When to Load |
 |---|---|---|
-| Dev Agent | `personas/dev_agent.md` | Default persona for all coding tasks |
+| Dev Agent | `persona.md` | Default persona for all coding tasks |
 
 ## Design Documentation
 

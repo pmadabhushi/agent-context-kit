@@ -10,10 +10,10 @@ When you select a persona, the agent builds its full context from your template 
 
 | Context Layer | Source | How It's Used |
 |---------------|--------|---------------|
-| Persona | `personas/*.md` | Mindset, methodology, safety rules, output format |
+| Persona | `persona.md` | Mindset, methodology, safety rules, output format |
 | Team Config | `AGENTS.md` | Build commands, branch strategy, environment info |
 | Design Docs | `design/**/*.md` | Architecture, APIs, patterns, threat models, policies, controls |
-| Skills | `skills/*/SKILL.md` | Step-by-step procedures for operational tasks |
+| Skills | `skills/*.md` | Step-by-step procedures for operational tasks |
 | Skill Triggers | Built-in keyword map | Auto-loads the right skill based on what you ask |
 
 All of this is injected into the system prompt at startup. The agent doesn't just know about your skills — it has the full instructions loaded and ready.

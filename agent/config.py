@@ -37,7 +37,7 @@ def load_persona(domain: str) -> str:
     domains = get_domains()
     if domain not in domains:
         raise ValueError(f"Unknown domain: {domain}. Choose from: {list(domains.keys())}")
-    persona_path = domains[domain]["personas"][0]
+    persona_path = domains[domain]["persona"]
     return read_md(persona_path)
 
 

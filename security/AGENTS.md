@@ -67,7 +67,7 @@
 
 | Persona | File | When to Load |
 |---|---|---|
-| Security Analyst | `personas/security_analyst.md` | Default persona for all security tasks |
+| Security Analyst | `persona.md` | Default persona for all security tasks |
 
 ## Design Documentation
 

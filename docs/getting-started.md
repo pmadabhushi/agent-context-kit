@@ -36,7 +36,7 @@ reads automatically when it starts:
 ```
 Your repo/
 ├── AGENTS.md          ← Agent reads this first (team config, conventions, safety rules)
-├── personas/          ← How the agent should think and behave
+├── persona.md         ← How the agent should think and behave
 ├── skills/            ← Step-by-step runbooks for specific tasks
 └── design/            ← Architecture docs the agent uses as reference
 ```
@@ -55,13 +55,13 @@ This is the agent's "day one" briefing. It contains:
 
 The agent reads this first, every session.
 
-### 2. Personas — How the Agent Thinks
+### 2. Persona — How the Agent Thinks
 A persona defines the agent's mindset and methodology:
 - **DevOps persona**: "Think like on-call. Gather data before acting. Never modify prod without confirmation."
 - **Coding persona**: "Read before you write. Minimal diffs. Flag shared interface changes."
 - **Security persona**: "Think like a threat actor first. Never dismiss a finding without evidence."
 
-Personas also define the output format, so every report looks consistent.
+The persona also defines the output format, so every report looks consistent.
 
 ### 3. Skills — Step-by-Step Runbooks
 Skills are loaded on demand when the agent needs to perform a specific task:

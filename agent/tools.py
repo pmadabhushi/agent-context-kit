@@ -180,7 +180,7 @@ def list_all_context(domain: str) -> str:
     lines = [f"# Available Context for {domain}\n"]
 
     # Persona
-    lines.append(f"## Persona: {domains[domain]['personas'][0]}")
+    lines.append(f"## Persona: {domains[domain]['persona']}")
 
     # AGENTS.md
     lines.append(f"## Team Config: {domains[domain]['agents']}")

@@ -9,7 +9,7 @@ to understand what to fill in.
 | File | Template Source | What Changed |
 |------|----------------|-------------|
 | `AGENTS.md` | `devops/AGENTS.md` | All `[placeholder]` values replaced with OrderService specifics |
-| `personas/ops_engineer.md` | `devops/personas/ops_engineer.md` | Added real team name, tools, commands, abbreviations |
+| `persona.md` | `devops/persona.md` | Added real team name, tools, commands, abbreviations |
 | `skills/deploy_service.md` | `devops/skills/deploy_service.md` | Real deploy script, Grafana URLs, Slack channels |
 | `skills/incident_triage.md` | `devops/skills/incident_triage.md` | Real log commands, dashboard URLs, severity thresholds |
 
