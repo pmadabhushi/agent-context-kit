@@ -45,10 +45,11 @@ agent-context-kit/
 4. Copy a template and fill in your team's info
 
 ### 🟡 Intermediate — I want to use this with my team
-1. See a realistic config: [`examples/devops-filled/`](examples/devops-filled/) (OrderService)
-2. Pick a domain: [`templates/coding/`](templates/coding/), [`templates/devops/`](templates/devops/), or [`templates/security/`](templates/security/)
-3. Copy the folder into your repo and replace all `[placeholder]` values
-4. Wire up your AI tool — see [Tool Setup Guides](docs/tool-guides/) for Kiro, Cursor, Copilot, Amazon Q
+1. Read the [Adoption Guide](docs/adoption-guide.md) — workshop agenda, progressive rollout, getting buy-in
+2. See a realistic config: [`examples/devops-filled/`](examples/devops-filled/) (OrderService with design doc, 4 skills)
+3. Pick a domain: [`templates/coding/`](templates/coding/), [`templates/devops/`](templates/devops/), or [`templates/security/`](templates/security/)
+4. Copy the folder into your repo and replace all `[placeholder]` values
+5. Wire up your AI tool — see [Tool Setup Guides](docs/tool-guides/) for Kiro, Cursor, Copilot, Amazon Q
 
 ### 🔴 Expert — I want to go deep
 1. Study the full multi-persona example: [`examples/greenfield-energy/`](examples/greenfield-energy/)
@@ -100,7 +101,8 @@ Supports AWS Bedrock, OpenAI, Anthropic, and LiteLLM. See [agent/README.md](agen
 |-------|-------|-------------|
 | [Getting Started](docs/getting-started.md) | 🟢 Beginner | What are agents, why this matters, how to start |
 | [Cheat Sheet](docs/cheatsheet.md) | 🟢 Beginner | One-page reference card with copy-paste templates |
-| [Tool Setup Guides](docs/tool-guides/) | 🟡 Intermediate | Kiro, Cursor, Copilot, Amazon Q configuration |
+| [Adoption Guide](docs/adoption-guide.md) | 🟡 Intermediate | Rolling out to your team: workshop, progressive rollout, objections |
+| [Tool Setup Guides](docs/tool-guides/) | 🟡 Intermediate | Kiro, Cursor, Copilot, Amazon Q configuration with worked examples |
 | [Advanced Patterns](docs/advanced-patterns.md) | 🔴 Expert | Multi-agent orchestration, context management, prompt engineering |
 | [Evaluation Guide](docs/evaluation.md) | 🔴 Expert | Metrics, eval harness, measuring agent effectiveness |
 | [Customization Guide](docs/customization.md) | 🔴 Expert | New domains, custom tools, MCP, CI/CD integration |

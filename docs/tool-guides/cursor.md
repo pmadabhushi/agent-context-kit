@@ -14,17 +14,31 @@ wire up your agent configuration.
 Create `.cursorrules` in your project root:
 
 ```
-Read AGENTS.md for project conventions, build commands, and safety rules.
-Read persona.md for your role, mindset, and output format.
+You are an AI assistant for the OrderService project.
 
-When performing operational tasks, check the skills/ directory for step-by-step
-procedures before proceeding.
+## Context Files
+- Read AGENTS.md for project conventions, build commands, and safety rules.
+- Read persona.md for your role, mindset, and output format.
+- When performing operational tasks, check the skills/ directory for step-by-step
+  procedures before proceeding.
+- When answering architecture questions, reference the design/ directory.
 
-When answering architecture questions, reference the design/ directory for
-system documentation.
+## Safety Rules (from AGENTS.md)
+- Never modify prod configuration without explicit confirmation.
+- Never deploy to prod without a passing staging validation.
+- If error rate exceeds 2% post-deployment, initiate rollback immediately.
+
+## Available Skills
+- skills/deploy_service.md — Full deployment workflow
+- skills/rollback_service.md — Rollback procedure
+- skills/incident_triage.md — Incident investigation
+- skills/health_check.md — System health check
+
+When a task matches a skill, load and follow its steps exactly.
 ```
 
-This gives Cursor a pointer to your files. It will read them as needed.
+Putting the safety rules directly in `.cursorrules` ensures they're always in
+context, even if Cursor doesn't load the full AGENTS.md.
 
 ## Option 2: Reference Files in Chat
 
@@ -39,14 +53,61 @@ For skills:
 @skills/deploy_service.md Walk me through deploying to prod
 ```
 
-## Option 3: Add to Project Context
+For design context:
+```
+@design/services/order-service.md What are the failure modes?
+```
 
-In Cursor Settings → Features → Docs, you can add your `AGENTS.md` as a
-documentation source that's always available.
+## Option 3: Cursor Composer with Full Context
+
+Cursor's Composer mode is ideal for multi-step tasks. Load all relevant context:
+
+```
+@AGENTS.md @persona.md @skills/incident_triage.md
+
+We're seeing elevated 5xx errors on OrderService. Error rate is at 3%.
+Walk me through the investigation.
+```
+
+Composer will follow the skill steps, use the commands from AGENTS.md, and
+produce output in the format defined in your persona.
+
+## Worked Example: Incident Investigation in Cursor
+
+```
+You: @AGENTS.md @skills/incident_triage.md
+     We're seeing 5xx errors on OrderService, error rate is 3%
+
+Cursor: Based on the incident triage skill, I'll investigate systematically.
+
+        Step 1 — Assessing current state:
+        Error rate is 3%, which is above the 2% threshold → this is a SEV2.
+
+        Step 2 — Checking recent changes:
+        > ./scripts/deploy.sh --list-versions --last 24h
+        v2.4.0 deployed 2 hours ago
+        v2.3.9 deployed 3 days ago
+
+        Step 3 — Checking logs:
+        > aws logs filter-log-events --log-group /ecs/orderservice
+          --filter-pattern "ERROR" --start-time [2 hours ago]
+
+        Found: ConnectionTimeoutException in PaymentClient.java:89
+        Pattern: all errors are on the /api/v1/orders POST endpoint
+
+        Investigation Summary
+        ---------------------
+        Issue:       ConnectionTimeout to PaymentService after v2.4.0 deploy
+        Severity:    SEV2
+        Root Cause:  v2.4.0 changed PaymentClient timeout from 10s to 2s
+        Recommendation: Rollback to v2.3.9
+```
 
 ## Tips
 
 - `.cursorrules` is the closest equivalent to automatic `AGENTS.md` loading
+- Put your most critical safety rules directly in `.cursorrules` for guaranteed inclusion
 - Use `@file` references for skills and design docs when you need them
-- Keep your `.cursorrules` short — point to files rather than duplicating content
-- Cursor's Composer mode works well with the full template structure
+- Keep your `.cursorrules` focused — point to files rather than duplicating all content
+- Cursor's Composer mode works best for multi-step tasks that follow a skill
+- For large projects, reference only the relevant skill rather than all files at once

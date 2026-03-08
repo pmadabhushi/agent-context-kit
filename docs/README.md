@@ -14,11 +14,12 @@ Guides are organized by experience level. Start at the top and go as deep as you
 
 | Resource | Description |
 |----------|-------------|
-| [Tool Setup: Kiro](tool-guides/kiro.md) | Auto-reads AGENTS.md. Use steering files for personas. |
-| [Tool Setup: Cursor](tool-guides/cursor.md) | Wire up via `.cursorrules` or `@file` references. |
-| [Tool Setup: GitHub Copilot](tool-guides/copilot.md) | Use `#file:` references and custom instructions. |
+| [Adoption Guide](adoption-guide.md) | How to roll this out to your team: workshop agenda, progressive rollout, common objections. |
+| [Tool Setup: Kiro](tool-guides/kiro.md) | Auto-reads AGENTS.md. Steering files, worked examples. |
+| [Tool Setup: Cursor](tool-guides/cursor.md) | `.cursorrules` setup, worked examples with Composer. |
+| [Tool Setup: GitHub Copilot](tool-guides/copilot.md) | `#file:` references and custom instructions. |
 | [Tool Setup: Amazon Q](tool-guides/amazon-q.md) | Workspace context and `/dev` agent integration. |
-| [DevOps Filled Example](../examples/devops-filled/) | Realistic single-team config for a web service. |
+| [DevOps Filled Example](../examples/devops-filled/) | Realistic single-team config with design doc, 4 skills, and filled persona. |
 
 ## 🔴 Expert
 
