@@ -81,6 +81,14 @@
 | Infrastructure (IaC) | `skills/infrastructure_management/SKILL.md` |
 | Health check | `skills/health_check/SKILL.md` |
 
+## Design Documentation
+
+| Category | Location | Contents |
+|---|---|---|
+| Service designs | `design/services/` | Architecture, APIs, dependencies, failure modes |
+| Feature designs | `design/features/` | Feature architecture, data flow, edge cases |
+| Workflow designs | `design/workflows/` | End-to-end workflow steps, state management |
+
 ## Contact
 
 - **Team:** [Team name] — [team alias or Slack/Chime channel]

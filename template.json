@@ -18,6 +18,11 @@
       "description": "AI DevOps agent — deployments, rollbacks, incident triage, scaling, log analysis, IaC, health checks",
       "agents": "devops/AGENTS.md",
       "personas": ["devops/personas/ops_engineer.md"],
+      "design": {
+        "services": "devops/design/services/",
+        "features": "devops/design/features/",
+        "workflows": "devops/design/workflows/"
+      },
       "skills": [
         "devops/skills/deploy_service/SKILL.md",
         "devops/skills/rollback_service/SKILL.md",

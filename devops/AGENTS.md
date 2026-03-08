@@ -68,6 +68,16 @@
 |---|---|---|
 | Ops Engineer | `personas/ops_engineer.md` | Default persona for all DevOps tasks |
 
+## Design Documentation
+
+Before investigating any issue, review the relevant design docs:
+
+| Category | Location | Contents |
+|---|---|---|
+| Service designs | `design/services/` | Architecture, APIs, dependencies, failure modes for each service |
+| Feature designs | `design/features/` | Feature architecture, data flow, edge cases, limits |
+| Workflow designs | `design/workflows/` | End-to-end workflow steps, state management, retry policies |
+
 ## References
 
 - Infrastructure design doc: [Link]

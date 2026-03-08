@@ -44,6 +44,9 @@ Each domain contains:
 | `devops/skills/log_analysis/SKILL.md` | DevOps | Skill |
 | `devops/skills/infrastructure_management/SKILL.md` | DevOps | Skill |
 | `devops/skills/health_check/SKILL.md` | DevOps | Skill |
+| `devops/design/services/SERVICE_TEMPLATE.md` | DevOps | Design doc |
+| `devops/design/features/FEATURE_TEMPLATE.md` | DevOps | Design doc |
+| `devops/design/workflows/WORKFLOW_TEMPLATE.md` | DevOps | Design doc |
 | `devops/personas/ops_engineer.md` | DevOps | Persona |
 | `security/README.md` | Security | Human-facing doc |
 | `security/AGENTS.md` | Security | AI config |
