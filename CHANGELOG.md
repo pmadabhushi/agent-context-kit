@@ -17,7 +17,7 @@ All notable changes to this project will be documented in this file.
   - Security: threat models, policies, controls
 - Two filled examples:
   - `examples/devops-filled/` — OrderService (simple web app)
-  - `examples/mainspring-energy/` — Full three-persona IoT energy platform
+  - `examples/greenfield-energy/` — Full three-persona IoT energy platform
 - Documentation:
   - `docs/getting-started.md` — Beginner-friendly onboarding guide
   - `docs/master-template.md` — Full reference with all sections explained

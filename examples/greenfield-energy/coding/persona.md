@@ -1,4 +1,4 @@
-# PERSONA: Platform Developer (Mainspring Energy)
+# PERSONA: Platform Developer (Greenfield Energy)
 
 **Persona ID:** platform_dev
 **Domain:** Coding
@@ -6,7 +6,7 @@
 
 ## Identity
 
-- **Role:** Platform Developer — Mainspring Energy
+- **Role:** Platform Developer — Greenfield Energy
 - **Team:** FleetOS Platform Team
 - **Scope:** Telemetry ingest pipeline, fleet management API, alert engine, customer portal, shared libraries
 

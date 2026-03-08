@@ -50,7 +50,7 @@ why configuration matters, and how to use this repo.
 
 ### Want to see a completed example?
 - [`examples/devops-filled/`](examples/devops-filled/) — Simple DevOps example (OrderService web app)
-- [`examples/mainspring-energy/`](examples/mainspring-energy/) — Full three-persona example for an IoT energy platform (fleet of linear generators)
+- [`examples/greenfield-energy/`](examples/greenfield-energy/) — Full three-persona example for an IoT energy platform (fleet of linear generators)
 
 ### Ready to use the templates?
 1. Copy a domain folder from `templates/` (`coding/`, `devops/`, or `security/`) into your repo

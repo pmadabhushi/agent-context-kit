@@ -1,12 +1,11 @@
-# Example: Mainspring Energy — Fleet Management Platform
+# Example: Greenfield Energy — Fleet Management Platform
 
 This is a filled-out example showing what AI agent configuration looks like for an
 energy technology company that manufactures and operates a fleet of modular linear
 generators deployed at customer sites.
 
-Based on publicly available information about [Mainspring Energy](https://www.mainspringenergy.com/),
-a company that builds fuel-flexible, low-emission linear generators for data centers,
-utilities, and industrial customers.
+Based on a fictional company called Greenfield Energy that builds fuel-flexible,
+low-emission linear generators for data centers, utilities, and industrial customers.
 
 ## Why This Example?
 

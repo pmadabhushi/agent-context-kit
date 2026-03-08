@@ -20,7 +20,7 @@
 - Dispatch mode and setpoint: note current operating mode
 
 ### Step 2 — Analyze Telemetry Trends
-- Open Grafana: `https://grafana.internal.mainspring.io/d/unit-detail?unit=[UNIT-ID]`
+- Open Grafana: `https://grafana.internal.greenfield.io/d/unit-detail?unit=[UNIT-ID]`
 - Check 24h trends for: power output, efficiency, emissions, vibration, temperatures
 - Look for: sudden changes, gradual degradation, correlation with time of day or ambient temp
 

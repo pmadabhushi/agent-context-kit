@@ -139,7 +139,7 @@ Supports AWS Bedrock, OpenAI, Anthropic, and more.
 
 ### Option 3: Read the Filled Examples
 - `examples/devops-filled/` — Simple DevOps example for a web service (OrderService)
-- `examples/mainspring-energy/` — Full three-persona example for an IoT energy platform with fleet operations, platform development, and OT security
+- `examples/greenfield-energy/` — Full three-persona example for an IoT energy platform with fleet operations, platform development, and OT security
 
 ## What AI Tools Support This?
 
@@ -180,6 +180,6 @@ Adapt the structure to fit your workflow.
 
 - Browse the templates in `templates/coding/`, `templates/devops/`, or `templates/security/`
 - Read the simple example in `examples/devops-filled/`
-- Read the full three-persona example in `examples/mainspring-energy/`
+- Read the full three-persona example in `examples/greenfield-energy/`
 - Try the agent: `cd agent && pip install -r requirements.txt && python main.py`
 - Read the master reference: `docs/master-template.md`

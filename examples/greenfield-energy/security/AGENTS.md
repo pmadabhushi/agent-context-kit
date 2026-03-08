@@ -1,4 +1,4 @@
-# AGENTS.md — Security (Mainspring Energy)
+# AGENTS.md — Security (Greenfield Energy)
 
 > This file is read automatically by AI security agents at session start.
 
@@ -7,12 +7,12 @@
 - **Platform:** FleetOS — fleet management and telemetry for deployed linear generators
 - **Data classification:** Customer site data (Confidential), Telemetry (Internal), Public specs (Public)
 - **Compliance frameworks:** SOC2 Type II, NERC CIP (for utility customers), state emissions reporting
-- **Security contact:** security@mainspring.io
-- **Vulnerability reporting:** security@mainspring.io — do not open public issues
+- **Security contact:** security@greenfield.io
+- **Vulnerability reporting:** security@greenfield.io — do not open public issues
 
 ## Threat Landscape
 
-Mainspring operates at the intersection of IT and OT (Operational Technology):
+Greenfield operates at the intersection of IT and OT (Operational Technology):
 - **IT side:** Cloud platform (AWS), APIs, customer portal, CI/CD pipeline
 - **OT side:** Edge gateways at customer sites, MQTT communication to field units, firmware updates
 - **Key risk:** A compromised edge gateway or dispatch command could affect physical power generation equipment
@@ -32,7 +32,7 @@ Mainspring operates at the intersection of IT and OT (Operational Technology):
 - All secrets stored in AWS Secrets Manager
 - Edge gateway credentials rotated every 90 days via automated pipeline
 - MQTT TLS certificates renewed annually
-- If a secret is suspected exposed: notify security@mainspring.io immediately
+- If a secret is suspected exposed: notify security@greenfield.io immediately
 
 ## Vulnerability Severity Matrix
 
@@ -69,7 +69,7 @@ Mainspring operates at the intersection of IT and OT (Operational Technology):
 
 ## References
 
-- Threat model: https://wiki.internal.mainspring.io/security/threat-model
-- NERC CIP compliance guide: https://wiki.internal.mainspring.io/security/nerc-cip
-- Incident response playbook: https://wiki.internal.mainspring.io/security/ir-playbook
-- OT security architecture: https://wiki.internal.mainspring.io/security/ot-architecture
+- Threat model: https://wiki.internal.greenfield.io/security/threat-model
+- NERC CIP compliance guide: https://wiki.internal.greenfield.io/security/nerc-cip
+- Incident response playbook: https://wiki.internal.greenfield.io/security/ir-playbook
+- OT security architecture: https://wiki.internal.greenfield.io/security/ot-architecture

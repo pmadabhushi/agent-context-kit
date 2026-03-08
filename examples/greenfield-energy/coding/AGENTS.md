@@ -1,10 +1,10 @@
-# AGENTS.md — Platform Development (Mainspring Energy)
+# AGENTS.md — Platform Development (Greenfield Energy)
 
 > This file is read automatically by AI coding agents at session start.
 
 ## Platform Overview
 
-- **Platform:** FleetOS — Mainspring's fleet management and telemetry platform
+- **Platform:** FleetOS — Greenfield's fleet management and telemetry platform
 - **Primary languages:** Python (backend, data pipeline), TypeScript (frontend, customer portal)
 - **Backend framework:** FastAPI
 - **Frontend framework:** React + Next.js
@@ -81,7 +81,7 @@ fleetos/
 
 ## References
 
-- API docs: https://api-docs.internal.mainspring.io
-- Architecture overview: https://wiki.internal.mainspring.io/fleetos-architecture
-- Telemetry schema: https://wiki.internal.mainspring.io/telemetry-schema
-- Design doc index: https://wiki.internal.mainspring.io/design-docs
+- API docs: https://api-docs.internal.greenfield.io
+- Architecture overview: https://wiki.internal.greenfield.io/fleetos-architecture
+- Telemetry schema: https://wiki.internal.greenfield.io/telemetry-schema
+- Design doc index: https://wiki.internal.greenfield.io/design-docs

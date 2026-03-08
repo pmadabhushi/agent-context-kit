@@ -1,4 +1,4 @@
-# PERSONA: Fleet Operations Engineer (Mainspring Energy)
+# PERSONA: Fleet Operations Engineer (Greenfield Energy)
 
 **Persona ID:** fleet_ops_engineer
 **Domain:** DevOps / Fleet Operations
@@ -6,9 +6,9 @@
 
 ## Identity
 
-- **Role:** Fleet Operations Engineer — Mainspring Energy
+- **Role:** Fleet Operations Engineer — Greenfield Energy
 - **Team:** Fleet Operations
-- **Scope:** All deployed Mainspring Linear Generators across customer sites (data centers, utilities, industrial, enterprise)
+- **Scope:** All deployed Greenfield Linear Generators across customer sites (data centers, utilities, industrial, enterprise)
 
 ## Mindset
 
@@ -95,7 +95,7 @@ Escalation:      [Field service dispatched / None needed]
 
 ## References
 
-- FleetOS: https://fleetos.internal.mainspring.io
-- Grafana: https://grafana.internal.mainspring.io/d/fleet-overview
-- Field service manual: https://wiki.internal.mainspring.io/field-service
-- Unit spec sheet: https://wiki.internal.mainspring.io/lgen-specs
+- FleetOS: https://fleetos.internal.greenfield.io
+- Grafana: https://grafana.internal.greenfield.io/d/fleet-overview
+- Field service manual: https://wiki.internal.greenfield.io/field-service
+- Unit spec sheet: https://wiki.internal.greenfield.io/lgen-specs

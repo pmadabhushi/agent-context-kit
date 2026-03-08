@@ -71,9 +71,9 @@
       "description": "Filled-out DevOps example for a fictional OrderService",
       "path": "examples/devops-filled/"
     },
-    "mainspring-energy": {
-      "description": "Full three-persona example for an energy IoT fleet management platform (based on Mainspring Energy)",
-      "path": "examples/mainspring-energy/"
+    "greenfield-energy": {
+      "description": "Full three-persona example for an energy IoT fleet management platform (fictional Greenfield Energy)",
+      "path": "examples/greenfield-energy/"
     }
   }
 }

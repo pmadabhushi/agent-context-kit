@@ -1,10 +1,10 @@
-# AGENTS.md — Fleet Operations (Mainspring Energy)
+# AGENTS.md — Fleet Operations (Greenfield Energy)
 
 > This file is read automatically by AI agents at session start for fleet operations tasks.
 
 ## Fleet Overview
 
-- **Product:** Mainspring Linear Generator (LGen), 250kW per unit
+- **Product:** Greenfield Linear Generator (LGen), 250kW per unit
 - **Fleet size:** 450+ MW across multiple customer sites
 - **Industries served:** Data centers, utilities, enterprise, industrial
 - **Fuels supported:** Natural gas, biogas/RNG, hydrogen, propane, field gas
@@ -68,8 +68,8 @@
 
 ## References
 
-- FleetOS dashboard: https://fleetos.internal.mainspring.io
-- Grafana fleet metrics: https://grafana.internal.mainspring.io/d/fleet-overview
-- PagerDuty schedule: https://mainspring.pagerduty.com/schedules/fleet-ops
-- Unit spec sheet: https://wiki.internal.mainspring.io/lgen-specs
-- Field service manual: https://wiki.internal.mainspring.io/field-service
+- FleetOS dashboard: https://fleetos.internal.greenfield.io
+- Grafana fleet metrics: https://grafana.internal.greenfield.io/d/fleet-overview
+- PagerDuty schedule: https://greenfield.pagerduty.com/schedules/fleet-ops
+- Unit spec sheet: https://wiki.internal.greenfield.io/lgen-specs
+- Field service manual: https://wiki.internal.greenfield.io/field-service
