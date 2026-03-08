@@ -1,59 +1,109 @@
 # AI Agent Templates
 
-A complete set of configuration files for AI coding, DevOps, and security agents.
-Encode your team's tribal knowledge into structured repository files so AI agents
-read it automatically at session start — no more re-explaining context every session.
+Give your AI assistant the context it needs to actually help — your architecture,
+your runbooks, your safety rules — so it stops asking and starts doing.
 
-## Structure
+## The Problem
+
+Every time you start a new AI chat, the assistant knows nothing about your system.
+You spend the first 10 minutes explaining your architecture, your tools, your
+deployment process. Then the session ends and you do it all over again.
+
+## The Solution
+
+Encode your team's knowledge into structured files that the AI reads automatically:
+
+```
+Your repo/
+├── AGENTS.md              ← Team config: tools, conventions, safety rules
+├── personas/              ← How the agent thinks and behaves
+│   └── ops_engineer.md
+├── skills/                ← Step-by-step runbooks for specific tasks
+│   ├── deploy_service.md
+│   ├── incident_triage.md
+│   └── ...
+└── design/                ← Architecture docs the agent references
+    └── services/
+```
+
+The agent reads these at session start. No more re-explaining context.
+
+## What's in This Repo
+
+Ready-to-use templates for three domains, a working agent, and a filled example:
 
 ```
 ai-agent-templates/
-├── agent/        # Working multi-persona agent (Strands SDK)
-├── coding/       # Coding agent: AGENTS.md, skills, persona, design
-├── devops/       # DevOps agent: AGENTS.md, skills, persona, design
-├── security/     # Security agent: AGENTS.md, skills, persona, design
-└── docs/         # Master template reference and contribution guide
+├── coding/           # Dev agent: code reviews, testing, changelogs
+├── devops/           # Ops agent: deployments, incidents, scaling, logs
+├── security/         # Security agent: vuln triage, incidents, access review
+├── examples/         # Filled-out example (OrderService) — see what "done" looks like
+├── agent/            # Working multi-persona agent (Python, Strands SDK)
+└── docs/             # Getting started guide, master reference, contribution guide
 ```
-
-Each domain contains:
-- `README.md` — Human-facing project overview
-- `AGENTS.md` — AI agent configuration (read at session start)
-- `skills/` — Step-by-step runbooks loaded on demand
-- `personas/` — Agent mindset, methodology, and safety rules
 
 ## Quick Start
 
-### Using the templates
-1. Copy the relevant domain folder into your service repository
-2. Replace all `[placeholder]` values with your team's actual tools, commands, and conventions
-3. Point your AI agent at `AGENTS.md` as its startup configuration file
+### New to AI agents? Start here:
+Read [`docs/getting-started.md`](docs/getting-started.md) — explains what agents are,
+why configuration matters, and how to use this repo.
 
-### Running the agent
+### Want to see a completed example?
+Browse [`examples/devops-filled/`](examples/devops-filled/) — a fully filled-out
+DevOps configuration for a fictional OrderService.
+
+### Ready to use the templates?
+1. Copy a domain folder (`coding/`, `devops/`, or `security/`) into your repo
+2. Replace all `[placeholder]` values with your team's actual info
+3. Point your AI tool at `AGENTS.md`
+
+### Want to run the agent?
 ```bash
 cd agent
 pip install -r requirements.txt
-python main.py                    # Interactive — pick a persona
+python main.py                    # Pick a persona interactively
 python main.py --persona devops   # Start as DevOps agent
 python main.py --provider openai  # Use OpenAI instead of Bedrock
 ```
+Supports AWS Bedrock, OpenAI, Anthropic, and LiteLLM. See [`agent/README.md`](agent/README.md).
 
-Supports AWS Bedrock (default), OpenAI, Anthropic, and LiteLLM. See `agent/README.md` for details.
+## How Each Piece Works
 
-## Complete File Inventory
+| File | Audience | Purpose |
+|------|----------|---------|
+| `AGENTS.md` | AI agent | Team config read at session start: tools, conventions, safety rules |
+| `personas/*.md` | AI agent | Mindset, methodology, safety guardrails, output format |
+| `skills/*.md` | AI agent | Step-by-step runbooks loaded on demand for specific tasks |
+| `design/**/*.md` | AI agent | Architecture, API specs, patterns, threat models, policies |
+| `README.md` | Humans | Project overview, setup instructions |
+
+## Compatible Tools
+
+These templates work with any AI tool that can read files from your repo:
+
+| Tool | How |
+|------|-----|
+| Kiro | Reads `AGENTS.md` automatically |
+| Cursor | Add to `.cursorrules` or reference in chat |
+| GitHub Copilot | Reference with `#file:AGENTS.md` |
+| Amazon Q Developer | Include in repo context |
+| Claude / ChatGPT | Paste contents or upload files |
+| Custom agents | Use the `agent/` directory as a starting point |
+
+## File Inventory
 
 | File | Domain | Type |
 |---|---|---|
-| `coding/README.md` | Coding | Human-facing doc |
 | `coding/AGENTS.md` | Coding | AI config |
+| `coding/personas/dev_agent.md` | Coding | Persona |
 | `coding/skills/raise_cr.md` | Coding | Skill |
 | `coding/skills/run_tests.md` | Coding | Skill |
 | `coding/skills/generate_changelog.md` | Coding | Skill |
-| `coding/personas/dev_agent.md` | Coding | Persona |
-| `coding/design/architecture/ARCHITECTURE_TEMPLATE.md` | Coding | Design doc |
-| `coding/design/apis/API_TEMPLATE.md` | Coding | Design doc |
-| `coding/design/patterns/PATTERN_TEMPLATE.md` | Coding | Design doc |
-| `devops/README.md` | DevOps | Human-facing doc |
+| `coding/design/architecture/` | Coding | Design template |
+| `coding/design/apis/` | Coding | Design template |
+| `coding/design/patterns/` | Coding | Design template |
 | `devops/AGENTS.md` | DevOps | AI config |
+| `devops/personas/ops_engineer.md` | DevOps | Persona |
 | `devops/skills/deploy_service.md` | DevOps | Skill |
 | `devops/skills/rollback_service.md` | DevOps | Skill |
 | `devops/skills/incident_triage.md` | DevOps | Skill |
@@ -61,35 +111,24 @@ Supports AWS Bedrock (default), OpenAI, Anthropic, and LiteLLM. See `agent/READM
 | `devops/skills/log_analysis.md` | DevOps | Skill |
 | `devops/skills/infrastructure_management.md` | DevOps | Skill |
 | `devops/skills/health_check.md` | DevOps | Skill |
-| `devops/design/services/SERVICE_TEMPLATE.md` | DevOps | Design doc |
-| `devops/design/features/FEATURE_TEMPLATE.md` | DevOps | Design doc |
-| `devops/design/workflows/WORKFLOW_TEMPLATE.md` | DevOps | Design doc |
-| `devops/personas/ops_engineer.md` | DevOps | Persona |
-| `security/README.md` | Security | Human-facing doc |
+| `devops/design/services/` | DevOps | Design template |
+| `devops/design/features/` | DevOps | Design template |
+| `devops/design/workflows/` | DevOps | Design template |
 | `security/AGENTS.md` | Security | AI config |
+| `security/personas/security_analyst.md` | Security | Persona |
 | `security/skills/vuln_triage.md` | Security | Skill |
 | `security/skills/incident_response.md` | Security | Skill |
 | `security/skills/secrets_rotation.md` | Security | Skill |
 | `security/skills/access_review.md` | Security | Skill |
-| `security/personas/security_analyst.md` | Security | Persona |
-| `security/design/threat_models/THREAT_MODEL_TEMPLATE.md` | Security | Design doc |
-| `security/design/policies/POLICY_TEMPLATE.md` | Security | Design doc |
-| `security/design/controls/CONTROL_TEMPLATE.md` | Security | Design doc |
-| `docs/master-template.md` | All | Master reference template |
-| `docs/CONTRIBUTING.md` | All | Contribution guide |
+| `security/design/threat_models/` | Security | Design template |
+| `security/design/policies/` | Security | Design template |
+| `security/design/controls/` | Security | Design template |
 
-## Working Agent
+## Learn More
 
-The `agent/` directory contains a fully functional multi-persona agent built with
-[Strands Agents SDK](https://github.com/strands-agents/sdk-python). It dynamically
-loads personas, skills, and team config from the template files above. See
-`agent/README.md` for setup and usage.
-
-## Template Manifest
-
-The `template.json` file at the root provides a machine-readable manifest of all domains, personas, and skills in this template set. It can be used by tooling to discover and validate the template structure.
-
-## References
-
-- AGENTS.md guide: https://agents.md/
-- Skills best practices: [Link]
+- [Getting Started Guide](docs/getting-started.md) — What are agents? Why does this matter?
+- [Filled Example](examples/devops-filled/) — See what a completed configuration looks like
+- [Master Template Reference](docs/master-template.md) — Full reference with all sections explained
+- [Contributing Guide](docs/CONTRIBUTING.md) — How to add domains, skills, and personas
+- [Agent README](agent/README.md) — Running the multi-persona agent
+- [AGENTS.md Guide](https://agents.md/) — The open standard for agent configuration

@@ -65,5 +65,11 @@
     "requirements": "agent/requirements.txt",
     "supported_providers": ["bedrock", "openai", "anthropic", "litellm"],
     "default_provider": "bedrock"
+  },
+  "examples": {
+    "devops-filled": {
+      "description": "Filled-out DevOps example for a fictional OrderService",
+      "path": "examples/devops-filled/"
+    }
   }
 }
