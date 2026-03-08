@@ -137,10 +137,9 @@ python main.py
 Pick a persona and start chatting. The agent loads all the templates as context.
 Supports AWS Bedrock, OpenAI, Anthropic, and more.
 
-### Option 3: Read the Filled Example
-Look at `examples/devops-filled/` to see what a completed DevOps configuration
-looks like for a real-ish service. Compare it with the templates to understand
-what to fill in.
+### Option 3: Read the Filled Examples
+- `examples/devops-filled/` — Simple DevOps example for a web service (OrderService)
+- `examples/mainspring-energy/` — Full three-persona example for an IoT energy platform with fleet operations, platform development, and OT security
 
 ## What AI Tools Support This?
 
@@ -180,6 +179,7 @@ Adapt the structure to fit your workflow.
 ## Next Steps
 
 - Browse the templates in `coding/`, `devops/`, or `security/`
-- Read the filled example in `examples/devops-filled/`
+- Read the simple example in `examples/devops-filled/`
+- Read the full three-persona example in `examples/mainspring-energy/`
 - Try the agent: `cd agent && pip install -r requirements.txt && python main.py`
 - Read the master reference: `docs/master-template.md`
