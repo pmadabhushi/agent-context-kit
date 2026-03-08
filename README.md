@@ -130,11 +130,19 @@ These templates work with any AI tool that can read files from your repo:
 
 ## Learn More
 
+### For Beginners
 - [Getting Started Guide](docs/getting-started.md) — What are agents? Why does this matter?
 - [Cheat Sheet](docs/cheatsheet.md) — One-page reference card for building agent configs
 - [Quickstart Example](examples/quickstart/) — Simplest possible config (Todo App, 4 files)
 - [Filled Example](examples/devops-filled/) — See what a completed configuration looks like
 - [Tool Setup Guides](docs/tool-guides/) — Kiro, Cursor, Copilot, Amazon Q
+
+### For Experts
+- [Advanced Patterns](docs/advanced-patterns.md) — Multi-agent orchestration, context window management, prompt engineering
+- [Evaluation Guide](docs/evaluation.md) — Measure agent effectiveness, build eval harnesses, track improvement
+- [Customization Guide](docs/customization.md) — New domains, composite skills, custom tools, MCP integration, CI/CD
+
+### Reference
 - [Master Template Reference](docs/master-template.md) — Full reference with all sections explained
 - [Contributing Guide](docs/CONTRIBUTING.md) — How to add domains, skills, and personas
 - [Agent README](agent/README.md) — Running the multi-persona agent
