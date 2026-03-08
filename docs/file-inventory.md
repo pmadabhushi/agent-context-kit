@@ -78,6 +78,7 @@ Complete list of every template file in the repo.
 | File | Description |
 |---|---|
 | `template.json` | Machine-readable manifest of all domains, skills, and paths |
+| `setup.sh` | One-command environment setup (Python, venv, deps, smoke test) |
 | `README.md` | Repo landing page |
 | `LICENSE` | MIT License |
 | `CHANGELOG.md` | Version history |

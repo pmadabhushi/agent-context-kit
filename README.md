@@ -40,7 +40,7 @@ agent-context-kit/
 
 ### 🟢 Beginner — I'm new to AI agents
 1. Read [Getting Started](docs/getting-started.md) to understand the concepts
-2. Set up your [environment](docs/getting-started.md#setting-up-your-environment) (Python, LLM access, etc.)
+2. Run `./setup.sh` to set up your environment (or [do it manually](docs/getting-started.md#setting-up-your-environment))
 3. Follow the [1-Hour Tutorial](docs/tutorial.md) — build your first config from scratch
 4. Look at the [Quickstart Example](examples/quickstart/) — 4 files, 5 minutes
 5. Read the [Cheat Sheet](docs/cheatsheet.md) for a one-page reference

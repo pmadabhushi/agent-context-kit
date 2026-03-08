@@ -300,6 +300,21 @@ and follow the Linux instructions above. Or install Python from
 
 ### 4. Clone the Repo and Install Dependencies
 
+The fastest way — run the setup script:
+
+```bash
+git clone https://github.com/pmadabhushi/agent-context-kit.git
+cd agent-context-kit
+./setup.sh
+```
+
+The script checks your OS, installs missing prerequisites (Homebrew, Python,
+Git config), creates a virtual environment, installs dependencies, and runs a
+smoke test. It's safe to run multiple times. Use `./setup.sh --check` to see
+what's installed without changing anything.
+
+If you prefer to do it manually:
+
 ```bash
 git clone https://github.com/pmadabhushi/agent-context-kit.git
 cd agent-context-kit
